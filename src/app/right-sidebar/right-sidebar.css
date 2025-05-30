@@ -1,15 +1,16 @@
 .right-sidebar {
   background-color: #121212;
   color: #00ffea;
-  width: 490px;
   height: 100vh;
-  margin-top: -1px;
   border-left: 1px solid #00ffea;
-  margin-right: 300px;
-  position: absolute;
-  left: 980px;
+  position: fixed;
+  top: 70px;
+  right: 0;
   box-shadow: 0 0 10px #00ffea;
+  z-index: 100;
+  width: 30Vw;
 }
+
 
 .suggested-people-to-follow,
 .most-popular,
@@ -19,11 +20,12 @@
   background-color: #1a1a1a;
   border: 1px solid #00ffea;
   border-radius: 10px;
-  width: 300px;
-  margin-left: 81px;
+  width: 100%;
   color: #00ffea;
   box-shadow: 0 0 8px #00ffea;
+  box-sizing: border-box;
 }
+
 
 .avatar1,
 .avatar2,
