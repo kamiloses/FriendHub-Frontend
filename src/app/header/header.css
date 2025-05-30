@@ -31,8 +31,8 @@ header {
 .friendhub {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #00ffea;
-  text-shadow: 0 0 8px #00ffea;
+  color: #ff9966;
+  text-shadow: 0 0 5px #ff9966, 0 0 10px #ff9966;
   letter-spacing: 2px;
 }
 
