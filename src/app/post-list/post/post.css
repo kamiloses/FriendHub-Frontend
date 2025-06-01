@@ -1,9 +1,9 @@
 .post-container {
-  background-color: #121212; /* zamiast red */
+  background-color: #121212;
   font-family: Arial, sans-serif;
   border-bottom: #00ffea solid 1px;
-  width: 60vw;
-  margin-left: 300px;
+  width: 44.5vw;
+  margin-left: 383px;
 }
 
 .user-data {
@@ -25,7 +25,7 @@ img {
 
 .name {
   font-weight: bold;
-  color: #ff9966; /* jak FriendHub */
+  color: #ff9966;
 }
 
 .unique-name, .date {
