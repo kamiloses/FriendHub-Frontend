@@ -1,0 +1,16 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form  class="form">
+    <label for="username">Username:</label>
+    <input type="text" id="username"  name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password"  name="password" required>
+<!--    @if ("loginError"!==''){-->
+<!--      <p class="error-message">dsa</p>-->
+<!--    }-->
+    <button type="submit">Login</button>
+  </form>
+
+  <a class="registration-link" [routerLink]="'/register'">Register</a>
+</div>
