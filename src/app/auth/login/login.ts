@@ -20,7 +20,7 @@ export class Login {
   constructor(private httpClient: HttpClient) {
   }
 
-  loginError:string=""
+  loginError: string = ""
 
 
   public loginForm = new FormGroup({
@@ -38,17 +38,6 @@ export class Login {
     })
   });
 
-  get usernameInvalid(): boolean {
-    const usernameInput = this.loginForm.get('username');
-    //&& usernameInput.dirty
-    if (usernameInput?.touched &&  usernameInput.errors?.['pattern'])
-      return true;
-    else {
-      return false}
-
-  }
-
-
   onSubmit(): void {
     const login: LoginModel = {
       username: this.loginForm.value.username!,
@@ -56,22 +45,36 @@ export class Login {
     };
 
     this.httpClient.post<any>("http://localhost:7070/api/login", login).subscribe(
-      {next:(response:string)=>{
-        if (response.startsWith("token")){
-          console.log("poprawnie")
-        }},
-        error:(error)=>{
+      {
+        next: (response: string) => {
+          if (response.startsWith("token")) {
+            console.log("Successful login")
+              //todo dodaje tokeny
+          }
+        },
+        error: (error) => {
           console.error('Error while trying to log in', error);
           this.loginError = 'Your credentials are invalid';
-
         }
+      })
+  }
 
 
 
-      }
 
-    )
+
+  get usernameInvalid(): boolean {
+    const usernameInput = this.loginForm.get('username');
+    return (usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']))
 
 
   }
+
+  get passwordInvalid(): boolean {
+    const usernameInput = this.loginForm.get('password');
+    return (usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']))
+
+
+  }
+
 }

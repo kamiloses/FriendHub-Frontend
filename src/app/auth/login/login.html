@@ -4,9 +4,9 @@
     <label  for="username">Username:</label>
     <input [class.error]="usernameInvalid" type="text" id="username" name="username" [formControl]="loginForm.controls.username">
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" [formControl]="loginForm.controls.password">
+    <input [class.error]="passwordInvalid" type="password" id="password" name="password" [formControl]="loginForm.controls.password">
       @if (loginError!=='') {
-        <p class="error-message">Problem .</p>
+        <p class="error-message">{{loginError}}</p>
 
     }
     <button type="submit">Login</button>
