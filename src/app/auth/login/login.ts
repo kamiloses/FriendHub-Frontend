@@ -1,15 +1,15 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {LoginModel} from '../../models/login.model';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   imports: [
     RouterLink,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './login.html',
   standalone: true,
@@ -17,7 +17,11 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 })
 export class Login {
 
-  //private httpClient = inject(HttpClient);
+  constructor(private httpClient: HttpClient) {
+  }
+
+  loginError:string=""
+
 
   public loginForm = new FormGroup({
     username: new FormControl('', {
@@ -39,8 +43,6 @@ export class Login {
     if (usernameInput?.touched && usernameInput.dirty && usernameInput.value == '')
       return true;
     else {
-
-      usernameInput?.reset()
       return false}
 
   }
@@ -52,10 +54,23 @@ export class Login {
       password: this.loginForm.value.password!
     };
 
-    // this.httpClient.post("http://localhost:7070/login", login).subscribe(value =>
-    //   console.log("DZIAŁAAA " + login)
-    // );
+    this.httpClient.post<any>("http://localhost:7070/api/login", login).subscribe(
+      {next:(response:string)=>{
+        if (response.startsWith("token")){
+          console.log("poprawnie")
+        }},
+        error:(error)=>{
+          console.error('Error while trying to log in', error);
+          this.loginError = 'Your credentials are invalid';
 
-    console.log("DZIAŁAAA ", login);
+        }
+
+
+
+      }
+
+    )
+
+
   }
 }
