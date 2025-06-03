@@ -27,20 +27,21 @@ export class Login {
     username: new FormControl('', {
       validators: [
         Validators.required,
-        // Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]+$")
+        Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
       ]
     }),
     password: new FormControl('', {
       validators: [
         Validators.required,
-        //  Validators.pattern("^(?!\\s*$).{6,}$")
+        Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
       ]
     })
   });
 
   get usernameInvalid(): boolean {
     const usernameInput = this.loginForm.get('username');
-    if (usernameInput?.touched && usernameInput.dirty && usernameInput.value == '')
+    //&& usernameInput.dirty
+    if (usernameInput?.touched &&  usernameInput.errors?.['pattern'])
       return true;
     else {
       return false}
