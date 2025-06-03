@@ -1,8 +1,8 @@
-import {Component, inject} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {LoginModel} from '../../models/login.model';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginModel } from '../../models/login.model';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -17,64 +17,51 @@ import {HttpClient} from '@angular/common/http';
 })
 export class Login {
 
-  constructor(private httpClient: HttpClient) {
-  }
-
-  loginError: string = ""
-
+  loginError: string = "";
 
   public loginForm = new FormGroup({
-    username: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
-      ]
-    }),
-    password: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
-      ]
-    })
+    username: new FormControl('', [
+      Validators.required,
+      Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern("^(?!\\s*$)[a-zA-Z0-9_]{7,}$")
+    ])
   });
 
+  constructor(private loginService: LoginService) {}
+
   onSubmit(): void {
+
+
     const login: LoginModel = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     };
 
-    this.httpClient.post<any>("http://localhost:7070/api/login", login).subscribe(
-      {
-        next: (response: string) => {
-          if (response.startsWith("token")) {
-            console.log("Successful login")
-              //todo dodaje tokeny
-          }
-        },
-        error: (error) => {
-          console.error('Error while trying to log in', error);
-          this.loginError = 'Your credentials are invalid';
+    this.loginService.login(login).subscribe({
+      next: (response: string) => {
+        if (response.startsWith("token")) {
+          console.log("Successful login");
+          // TODO: dodaj tokeny i przekierowanie
         }
-      })
+      },
+      error: (error) => {
+        console.error('Error while trying to log in', error);
+        this.loginError = 'Your credentials are invalid';
+      }
+    });
   }
-
-
-
-
 
   get usernameInvalid(): boolean {
     const usernameInput = this.loginForm.get('username');
-    return (usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']))
-
-
+    return !!(usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']));
   }
 
   get passwordInvalid(): boolean {
-    const usernameInput = this.loginForm.get('password');
-    return (usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']))
-
-
+    const passwordInput = this.loginForm.get('password');
+    return !!(passwordInput?.touched && (passwordInput.errors?.['pattern'] || passwordInput.errors?.['required']));
   }
 
 }
