@@ -1,12 +1,13 @@
 <div class="post-container" [routerLink]="['/post/1']" style="cursor: pointer;">
   <div class="user-data">
 <!--    <img src="facebook-icon.jpg" alt="image not loaded">-->
-    <p class="name">Jan Kowalski</p>
-    <p class="unique-name">&#64;janek</p>
-    <p class="date">2025-06-01</p>
+    <p class="name">{{post.user.firstName +" "+ post.user.lastName}}</p>
+    <p class="unique-name">&#64;{{post.user.username}}</p>
+    <p class="date">{{post.createdAt}}</p>
   </div>
   <div class="post-text">
-           {{post.content}}
+           {{post.content + " "+ post.id}}
+
 
     <div class="interactions">
       <i class="fa fa-comment">0</i>

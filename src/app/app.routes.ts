@@ -1,5 +1,5 @@
 import {Routes} from '@angular/router';
-import {PostDetails} from './post-list/post/post-details/post-details';
+import { PostDetailsComponent} from './post-list/post/post-details/post-details';
 import {PostList} from './post-list/post-list';
 import {Login} from './auth/login/login';
 import {HomeLayout} from './home-layout/home-layout';
@@ -7,7 +7,7 @@ import {postListResolver} from './post-list/post-list.resolver';
 
 export const routes: Routes = [
 
-  {path: 'post', component: PostDetails},
+  {path: 'post', component: PostDetailsComponent},
   {
     path: '',
     component: HomeLayout,
@@ -18,7 +18,7 @@ export const routes: Routes = [
         }
 
       },
-      {path: 'post/1', component: PostDetails},
+      {path: 'post/1', component: PostDetailsComponent},
     ]
   },
 

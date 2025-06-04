@@ -1,10 +1,11 @@
 <div  class="post-container">
   <div class="user-data"><img src="facebook-icon.jpg" alt="image not loaded">
-    <p class="name"></p>
-    <p class="unique-name">&#64;</p>
+    <p class="name">{{postModel.user?.firstName+" "+ postModel.user?.lastName}}</p>
+    <p class="unique-name">&#64;{{postModel.user?.username}}</p>
     <p class="date"> 20.04.2024</p>
   </div>
   <div class="post-text">
+    {{postModel.content}}
     <div class="interactions">
       <i class="fa fa-comment"></i>
       <i class="fa fa-heart"></i>
