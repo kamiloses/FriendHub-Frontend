@@ -12,7 +12,6 @@ import {RouterOutlet} from '@angular/router';
     Header,
     LeftSidebar,
     RightSidebar,
-    PostList,
     RouterOutlet
   ],
   templateUrl: './home-layout.html',

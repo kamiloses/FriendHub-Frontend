@@ -3,6 +3,7 @@ import {PostDetails} from './post-list/post/post-details/post-details';
 import {PostList} from './post-list/post-list';
 import {Login} from './auth/login/login';
 import {HomeLayout} from './home-layout/home-layout';
+import {postListResolver} from './post-list/post-list.resolver';
 
 export const routes: Routes = [
 
@@ -11,7 +12,12 @@ export const routes: Routes = [
     path: '',
     component: HomeLayout,
     children: [
-      {path: '', component: PostList},
+      {path: '', component: PostList
+      , resolve: {
+          posts: postListResolver
+        }
+
+      },
       {path: 'post/1', component: PostDetails},
     ]
   },

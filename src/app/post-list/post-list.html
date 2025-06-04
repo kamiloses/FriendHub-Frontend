@@ -1,6 +1,6 @@
 <div class="post-list-container">
-@for (posts of posts;track posts){
-  <app-post></app-post>
+@for (posts of fetchedPosts;track posts){
+  <app-post [post]="posts"></app-post>
 
 
 

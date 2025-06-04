@@ -1,6 +1,8 @@
+import {User} from './user.model';
+
 export interface PostModel {
   id: string;
-  // user:User;
+   user:User;
   content: string;
   createdAt: string;
   likeCount: number;

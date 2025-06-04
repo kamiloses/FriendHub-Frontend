@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PostModel } from '../models/post.model';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Post} from './post/post';
-import {PostsData} from '../models/Post.Data';
-import {PostModel} from '../models/post.model';
 
 @Component({
   selector: 'app-post-list',
+  templateUrl: './post-list.html',
+  standalone: true,
   imports: [
     Post
   ],
-  templateUrl: './post-list.html',
-  standalone: true,
-  styleUrl: './post-list.css'
+  styleUrls: ['./post-list.css']
 })
-export class PostList {
+export class PostList implements OnInit {
+  fetchedPosts: PostModel[] = [];
 
-  posts:PostModel[]=PostsData.posts;
+  constructor(private route: ActivatedRoute,private router:Router) {}
+
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      if (data['posts'] === null) {
+        this.router.navigate(['/error']);}
+
+      else {
+      this.fetchedPosts = data['posts'];}
+    });
+  }
 }
