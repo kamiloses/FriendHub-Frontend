@@ -10,9 +10,9 @@
 
 
     <div class="interactions">
-      <i class="fa fa-comment">0</i>
-      <i class="fa fa-retweet"></i> <span>5</span>
-      <i class="fa fa-heart"></i> <span>10</span>
+      <i  class="fa fa-comment">0</i>
+      <i [ngClass]="post.retweetedByMe ? 'retweeted': 'not-retweeted'" class="fa fa-retweet"></i> <span>5</span>
+      <i [ngClass]="post.likedByMe ? 'liked': 'not-liked'" (click)="toggleLike(post)" class="fa fa-heart"></i> <span>{{post.likeCount}}</span>
     </div>
   </div>
 </div>

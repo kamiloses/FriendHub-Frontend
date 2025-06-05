@@ -65,3 +65,9 @@ i {
   border-radius: 50%;
   transition: transform 0.3s ease, color 0.3s ease;
 }
+
+.liked{
+  color: red;
+
+
+}
