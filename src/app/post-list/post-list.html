@@ -1,5 +1,11 @@
 <div class="post-list-container">
-@for (posts of fetchedPosts;track posts){
+  <div class="publish-post">
+<!--    <img src="facebook-icon.jpg" alt="image not loaded">-->
+    <textarea placeholder="What's on your mind ?!" [ngModel]="postInput"></textarea>
+    <button (click)="sendPost()">Publish</button>
+  </div>
+
+  @for (posts of fetchedPosts;track posts){
   <app-post [post]="posts"></app-post>
 
 

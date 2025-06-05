@@ -24,4 +24,10 @@ export class PostListService {
       );
   }
 
+  sendPost(text: string): Observable<any> {
+    const body = { content: text };
+    return this.http.post("http://localhost:8080/api/posts/kamiloses1", body);
+  }
+
+
 }
