@@ -30,20 +30,20 @@ export class Comments implements OnInit , OnDestroy {
 
   private subscription: Subscription | null = null;
 
-  // @Input({required:true})currentRoute?: string;
+  @Input({required:true})currentRoute?: string;
 
 
 
   ngOnInit(): void {
 
-    // this.subscription = this.httpClient.get<CommentModel[]>("http://localhost:8083/api/comments/"+this.currentRoute).subscribe({
-    //   next: (data) => {
-    //     this.comments = data;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error while downloading data:', error);
-    //   }
-    // });
+    this.subscription = this.httpClient.get<CommentModel[]>("http://localhost:8083/api/comments/"+this.currentRoute).subscribe({
+      next: (data) => {
+        this.comments = data;
+      },
+      error: (error) => {
+        console.error('Error while downloading data:', error);
+      }
+    });
 
   }
 
