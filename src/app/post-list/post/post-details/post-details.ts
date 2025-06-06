@@ -2,9 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {PostDetailsService} from './post-details.service';
 import {PostModel} from '../../../models/post.model';
 import {map} from 'rxjs';
+import {Comments} from './comments/comments';
 
 @Component({
-  imports: [],
+  imports: [
+    Comments
+  ],
   standalone: true,
   selector: 'app-post-details',
   templateUrl: './post-details.html',
