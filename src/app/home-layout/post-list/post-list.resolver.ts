@@ -1,9 +1,8 @@
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from '@angular/router';
-import { PostModel } from '../models/post.model';
 import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import {catchError, Observable, of} from 'rxjs';
 import {PostListService} from './post-list.service';
+import {PostModel} from './post/post.model';
 
 export const postListResolver: ResolveFn<PostModel[]|null> = (
   route: ActivatedRouteSnapshot,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel } from '../models/post.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Post} from './post/post';
 import {FormsModule} from '@angular/forms';
 import {PostListService} from './post-list.service';
+import {PostModel} from './post/post.model';
 
 @Component({
   selector: 'app-post-list',

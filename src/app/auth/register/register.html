@@ -1,6 +1,6 @@
 <div class="register-container">
   <h2>Register</h2>
-  <form  class="form" [formGroup]="registerForm" (ngSubmit)="onsubmit">
+  <form  class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" [formControl]="registerForm.controls.firstName">
     <div class="error-message"></div>
@@ -10,7 +10,7 @@
     <div class="error-message"></div>
 
     <label for="username">Username:</label>
-    <input type="text" id="username" [formControl]="registerForm.controls.username">
+    <input [class.error]="usernameInvalid" type="text" id="username" [formControl]="registerForm.controls.username">
     <div class="error-message"></div>
 
     <label for="password">Password:</label>

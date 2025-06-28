@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {catchError, Observable, of} from 'rxjs';
-import {PostModel} from '../../../models/post.model';
 import {HttpClient} from '@angular/common/http';
+import {PostModel} from '../post.model';
 
 @Injectable({providedIn:"root"})
 export class PostDetailsService{

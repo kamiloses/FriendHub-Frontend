@@ -1,10 +1,10 @@
 import {Component, Input, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {PostModel} from '../../models/post.model';
 import {NgClass} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {LikeService} from './like.service';
 import {RetweetService} from './retweet.service';
+import {PostModel} from './post.model';
 
 @Component({
   selector: 'app-post',

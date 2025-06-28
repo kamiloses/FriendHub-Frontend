@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {RegistrationModel} from '../../models/registration.model';
 import {Observable} from 'rxjs';
+import {RegistrationModel} from './registration.model';
 
 @Injectable({providedIn: "root"})
 export class RegisterService {
@@ -11,7 +11,7 @@ export class RegisterService {
 
 
   signUp(registrationModel: RegistrationModel):Observable<string> {
-    return this.http.post<string>("http://localhost:8083", registrationModel)
+    return this.http.post<string>("http://localhost:8081/api/user/signup", registrationModel)
 
 
   }

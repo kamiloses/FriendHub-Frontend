@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {Header} from "../header/header";
-import {LeftSidebar} from "../left-sidebar/left-sidebar";
-import {RightSidebar} from "../right-sidebar/right-sidebar";
-import {PostList} from '../post-list/post-list';
+import {Header} from "./header/header";
+import {LeftSidebar} from "./left-sidebar/left-sidebar";
+import {RightSidebar} from "./right-sidebar/right-sidebar";
+import {PostList} from './post-list/post-list';
 import {RouterOutlet} from '@angular/router';
 
 @Component({

@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {LoginService} from '../login/login.service';
 import {RegisterService} from './register.service';
-import {RegistrationModel} from '../../models/registration.model';
+import {RegistrationModel} from './registration.model';
 
 @Component({
   selector: 'app-register',
@@ -48,12 +47,24 @@ export class Register {
       username: this.registerForm.value.username!,
       password: this.registerForm.value.password!};
 
-    // this.registerService.signUp(registrationModel)
-    //   .subscribe({next:()=>
-    //
-    //
-    //   })
+    this.registerService.signUp(registrationModel)
+      .subscribe({next:(response)=> {
+          console.log('HTTP request successful:', response);
+         // this.router.navigate(['/login']);
+        },
+        error:(err)=>{
+        console.warn("There was some error while singing up: ",err )
+
+        }
+      })
 
   }
+
+
+  get usernameInvalid(): boolean {
+    const usernameInput = this.registerForm.get('username');
+    return !!(usernameInput?.touched && (usernameInput.errors?.['pattern'] || usernameInput.errors?.['required']));
+  }
+
 
 }

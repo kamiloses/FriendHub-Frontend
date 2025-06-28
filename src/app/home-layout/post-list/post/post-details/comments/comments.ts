@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs';
-import {CommentModel} from '../../../../models/comment.model';
 import {FormsModule} from '@angular/forms';
+import {CommentModel} from './comment.model';
 
 @Component({
   selector: 'app-comments',

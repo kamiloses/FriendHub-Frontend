@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginModel } from '../../models/login.model';
 import {LoginService} from './login.service';
+import {LoginModel} from './login.model';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +40,7 @@ export class Login {
       password: this.loginForm.value.password!
     };
 
-    this.loginService.login(login).subscribe({
+    this.loginService.login({loginData: login}).subscribe({
       next: (response: string) => {
         if (response.startsWith("token")) {
           console.log("Successful login");

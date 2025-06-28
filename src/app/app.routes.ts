@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
-import { PostDetailsComponent} from './post-list/post/post-details/post-details';
-import {PostList} from './post-list/post-list';
+import {PostList} from './home-layout/post-list/post-list';
 import {Login} from './auth/login/login';
 import {HomeLayout} from './home-layout/home-layout';
-import {postListResolver} from './post-list/post-list.resolver';
+import {postListResolver} from './home-layout/post-list/post-list.resolver';
 import {Register} from './auth/register/register';
+import {PostDetailsComponent} from './home-layout/post-list/post/post-details/post-details';
 
 export const routes: Routes = [
 

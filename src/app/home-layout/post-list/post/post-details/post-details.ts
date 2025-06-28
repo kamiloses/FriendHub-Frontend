@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PostDetailsService} from './post-details.service';
-import {PostModel} from '../../../models/post.model';
 import {map} from 'rxjs';
 import {Comments} from './comments/comments';
+import {PostModel} from '../post.model';
 
 @Component({
   imports: [
