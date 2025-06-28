@@ -3,10 +3,12 @@
       <span  class="friendhub">FriendHub</span>
     </div>
     <div class="header-right">
-    
+
       <div class="search-container">
-        <input type="text" placeholder="Search... (by username)">
-        <button class="search-button"><i class="fa fa-search"></i></button>
+        <form (ngSubmit)="searchUsers()">
+          <input type="text" placeholder="Search..." [(ngModel)]="searchedUser" name="searchedUser" required />
+          <button type="submit">Search</button>
+        </form>
       </div>
     </div>
   </header>
