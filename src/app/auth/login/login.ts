@@ -3,6 +3,7 @@ import {Router, RouterLink} from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {LoginService} from './login.service';
 import {LoginModel} from './login.model';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ export class Login {
     ])
   });
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router,private authService:AuthService) {}
 
   onSubmit(): void {
 
@@ -44,15 +45,13 @@ export class Login {
       next: (response: LoginResponse) => {
         console.log("response ",response)
         if (response.token) {
+         this.authService.login(response.token);
          this.router.navigate(['/']);
-          localStorage.setItem('auth_token', response.token);
 
-          // TODO: dodaj tokeny i przekierowanie
 
         }
       },
-      error: (error) => {
-        console.error('Error while trying to log in', error);
+      error: () => {
         this.loginError = 'Your credentials are invalid';
       }
     });
