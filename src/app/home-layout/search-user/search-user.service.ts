@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {SearchedUser} from './searched-user.model';
+import { SearchedUserModel} from './searched-user.model';
 import {Injectable} from '@angular/core';
 
 @Injectable({
@@ -9,11 +9,11 @@ export class SearchUserService {
   constructor(private http: HttpClient) {
   }
   //todo zmien nazwe z friendsMOdel
-  searchPeople(): Observable<SearchedUser[]> {
+  searchPeople(username:string): Observable<SearchedUserModel[]> {
 
     const headers = new HttpHeaders({
       'myUsername': 'kamiloses1'
     });
-    return this.http.get<SearchedUser[]>("http://localhost:8084/api/friends/dsadadsaddsadsa",{headers});
+    return this.http.get<SearchedUserModel[]>("http://localhost:8084/api/friends/"+username,{headers});
   }
 }

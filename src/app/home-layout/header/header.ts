@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {SearchUsersService} from './search-users.service';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {SearchUserService} from '../search-user/search-user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,23 +14,13 @@ import {Router} from '@angular/router';
 })
 export class Header {
 
-  constructor(private searchUsersService: SearchUsersService,private router:Router) {
+  constructor(private searchUsersService: SearchUserService, private router: Router) {
   }
 
-  searchedUser!:string
+  searchedUser!: string
 
 
   searchUsers() {
-    this.searchUsersService.searchPeople()
-      .subscribe({
-        next: (response) => {
-          console.log('HTTP request successful:', response);
-          this.router.navigate(['/search']);
-        },
-        error: (err) => {
-          console.warn("There was some error while singing up: ", err);
-        }
-      });
+    this.router.navigate(['/search'], { queryParams: { username: 'dsadadsaddsadsa' } });
   }
 }
-

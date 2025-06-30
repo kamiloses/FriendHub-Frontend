@@ -4,8 +4,9 @@ import {Login} from './auth/login/login';
 import {HomeLayout} from './home-layout/home-layout';
 import {postListResolver} from './home-layout/post-list/post-list.resolver';
 import {Register} from './auth/register/register';
-import {SearchedPeople} from './home-layout/searched-people/searched-people';
 import {PostDetailsComponent} from './home-layout/post-list/post/post-details/post-details';
+import {SearchUser} from './home-layout/search-user/search-user';
+import {UserResolver} from './home-layout/search-user/search-user.resolver';
 
 export const routes: Routes = [
 
@@ -18,7 +19,10 @@ export const routes: Routes = [
     children: [
       {
         path: 'search',//todo dynamiczne search chyba i sprawdz czy ts ma zawierac nazwe component
-        component: SearchedPeople
+        component: SearchUser
+        ,resolve:{
+          searchedUsers:UserResolver
+        }
       },
 
 

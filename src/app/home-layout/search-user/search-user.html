@@ -1,1 +1,17 @@
-<p>search-user works!</p>
+<div class="all-searched-people">
+  @for (user of searchedUsers; track user.id) {
+    <div class="one-person">
+      <img src="facebook-icon.jpg">
+      <p class="name">{{user.firstName}} {{user.lastName}}</p>
+      <p class="username">&#64;{{user.username}}</p>
+      @if (!user.isYourFriend){
+        <button>Add</button>}
+      @else {
+        <button>Remove</button>
+<!--        <button (click)="onClickUserFriend(user.username)">Remove</button>-->
+      }
+      <!--        <button (click)="onClickUserNotFriend(user.username)">Add</button>}-->
+
+    </div>
+  }
+</div>

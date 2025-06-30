@@ -1,5 +1,5 @@
-export interface SearchedUser {
-  id: number | null;
+export interface SearchedUserModel {
+  id: number;
   username: string;
   firstName: string;
   lastName: string;
