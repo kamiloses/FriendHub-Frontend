@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {LoginService} from './login.service';
 import {LoginModel} from './login.model';
@@ -30,7 +30,7 @@ export class Login {
     ])
   });
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   onSubmit(): void {
 
@@ -41,9 +41,10 @@ export class Login {
     };
 
     this.loginService.login({loginData: login}).subscribe({
-      next: (response: string) => {
-        if (response.startsWith("token")) {
-          console.log("Successful login");
+      next: (response: LoginResponse) => {
+        console.log("response ",response)
+        if (response.token) {
+         this.router.navigate(['/']);
           // TODO: dodaj tokeny i przekierowanie
         }
       },
