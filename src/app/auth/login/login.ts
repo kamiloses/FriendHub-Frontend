@@ -45,7 +45,10 @@ export class Login {
         console.log("response ",response)
         if (response.token) {
          this.router.navigate(['/']);
+          localStorage.setItem('auth_token', response.token);
+
           // TODO: dodaj tokeny i przekierowanie
+
         }
       },
       error: (error) => {
