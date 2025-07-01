@@ -1,8 +1,8 @@
 
 <div class="publish-comment">
-  <form (ngSubmit)="sendComment()">
+  <form (ngSubmit)="sendComment(commentText.value)">
   <img src="facebook-icon.jpg" alt="image not loaded">
-  <textarea placeholder="Publish a comment ..." ></textarea>
+  <textarea  #commentText placeholder="Publish a comment ..." ></textarea>
   <i class="fas fa-camera icon"></i>
   <i class="fas fa-smile"></i>
 
@@ -25,69 +25,70 @@
       <div class="interactions">
         <i class="fa fa-comment"></i>
       </div>
-      <form (ngSubmit)="sendComment()">
+<!--      <form (ngSubmit)="sendComment()">-->
+      <form >
         <input type="text" [(ngModel)]="replyInput" name="content">
         <button type="submit">Publish</button>
       </form>
     </div>
 
-    <div class="replies">
-      @for (reply of comments; track reply.id) {
-        @if (comment.id == reply.parentCommentId) {
-          <div class="reply">
+<!--    <div class="replies">-->
+<!--      @for (reply of comments; track reply.id) {-->
+<!--        @if (comment.id == reply.parentCommentId) {-->
+<!--          <div class="reply">-->
 
 
-            <details>
-              <summary>See more</summary>
-              <p class="name">{{reply.userDetails.firstName}} {{reply.userDetails.lastName}}</p>
-              <p class="unique-name">&#64;{{reply.userDetails.username}}</p>
-              <p class="date">20.04.2024</p>
-              <p>{{ reply.content }}</p>
-              <form (ngSubmit)="sendComment()">
-                <input type="text" [(ngModel)]="replyInput" name="content">
-                <button type="submit">Publish</button>
-              </form>
-            </details>
+<!--            <details>-->
+<!--              <summary>See more</summary>-->
+<!--              <p class="name">{{reply.userDetails.firstName}} {{reply.userDetails.lastName}}</p>-->
+<!--              <p class="unique-name">&#64;{{reply.userDetails.username}}</p>-->
+<!--              <p class="date">20.04.2024</p>-->
+<!--              <p>{{ reply.content }}</p>-->
+<!--              <form (ngSubmit)="sendComment()">-->
+<!--                <input type="text" [(ngModel)]="replyInput" name="content">-->
+<!--                <button type="submit">Publish</button>-->
+<!--              </form>-->
+<!--            </details>-->
 
-            @for (subReply of comments; track subReply.id) {
-              @if (subReply.parentCommentId == reply.id) {
-                <div class="sub-reply">
-                  <details>
-                    <summary>See more</summary>
-                    <p class="name">{{subReply.userDetails.firstName}} {{subReply.userDetails.lastName}}</p>
-                    <p class="unique-name">&#64;{{subReply.userDetails.username}}</p>
-                    <p class="date">20.04.2024</p>
-                    <p>{{ subReply.content }}</p>
-                    <form (ngSubmit)="sendComment()">
-                      <input type="text" [(ngModel)]="subReplyInput" name="content">
-                      <button type="submit">Publish</button>
-                    </form>
+<!--            @for (subReply of comments; track subReply.id) {-->
+<!--              @if (subReply.parentCommentId == reply.id) {-->
+<!--                <div class="sub-reply">-->
+<!--                  <details>-->
+<!--                    <summary>See more</summary>-->
+<!--                    <p class="name">{{subReply.userDetails.firstName}} {{subReply.userDetails.lastName}}</p>-->
+<!--                    <p class="unique-name">&#64;{{subReply.userDetails.username}}</p>-->
+<!--                    <p class="date">20.04.2024</p>-->
+<!--                    <p>{{ subReply.content }}</p>-->
+<!--                    <form (ngSubmit)="sendComment()">-->
+<!--                      <input type="text" [(ngModel)]="subReplyInput" name="content">-->
+<!--                      <button type="submit">Publish</button>-->
+<!--                    </form>-->
 
-                  </details>
+<!--                  </details>-->
 
-                  @for (nestedReply of comments; track nestedReply.id) {
-                    @if (nestedReply.parentCommentId == subReply.id) {
-                      <div class="nested-reply">
-                        <details>
-                          <summary>See more</summary>
-                          <p class="name">{{nestedReply.userDetails.firstName}} {{nestedReply.userDetails.lastName}}</p>
-                          <p class="unique-name">&#64;{{nestedReply.userDetails.username}}</p>
-                          <p class="date">20.04.2024</p>
-                          <p>{{ nestedReply.content }}</p>
-                          <form (ngSubmit)="sendComment()">
-                            <input type="text" [(ngModel)]="nestedReplyInput" name="content">
-                            <button type="submit">Publish</button>
-                          </form>
-                        </details>
-                      </div>
-                    }
-                  }
-                </div>
-              }
-            }
-          </div>
-        }
-      }
-    </div>
+<!--                  @for (nestedReply of comments; track nestedReply.id) {-->
+<!--                    @if (nestedReply.parentCommentId == subReply.id) {-->
+<!--                      <div class="nested-reply">-->
+<!--                        <details>-->
+<!--                          <summary>See more</summary>-->
+<!--                          <p class="name">{{nestedReply.userDetails.firstName}} {{nestedReply.userDetails.lastName}}</p>-->
+<!--                          <p class="unique-name">&#64;{{nestedReply.userDetails.username}}</p>-->
+<!--                          <p class="date">20.04.2024</p>-->
+<!--                          <p>{{ nestedReply.content }}</p>-->
+<!--                          <form (ngSubmit)="sendComment()">-->
+<!--                            <input type="text" [(ngModel)]="nestedReplyInput" name="content">-->
+<!--                            <button type="submit">Publish</button>-->
+<!--                          </form>-->
+<!--                        </details>-->
+<!--                      </div>-->
+<!--                    }-->
+<!--                  }-->
+<!--                </div>-->
+<!--              }-->
+<!--            }-->
+<!--          </div>-->
+<!--        }-->
+<!--      }-->
+<!--    </div>-->
   </div>
 }

@@ -57,11 +57,11 @@ export class Comments implements OnInit , OnDestroy {
   }
 
 //  sendComment(comment: CommentModel) {
-  sendComment() {
+  sendComment(content:string) {
     const commentModel: PublishCommentModel = {
       postId: this.currentRoute,
       parentCommentId: null,
-      content: "HEJ"
+      content: content
     };
     this.subscription = this.httpClient.post<void[]>("http://localhost:8083/api/comments?username=kamiloses1",commentModel).subscribe({});
     window.location.reload();
