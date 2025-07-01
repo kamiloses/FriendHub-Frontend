@@ -33,7 +33,7 @@ export const routes: Routes = [
         }
 
       },
-      {path: 'post/1', component: PostDetailsComponent},
+      {path: 'post/:id', component: PostDetailsComponent},
     ]
   },
 

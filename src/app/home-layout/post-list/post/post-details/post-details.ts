@@ -3,6 +3,7 @@ import {PostDetailsService} from './post-details.service';
 import {map} from 'rxjs';
 import {Comments} from './comments/comments';
 import {PostModel} from '../post.model';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   imports: [
@@ -14,15 +15,17 @@ import {PostModel} from '../post.model';
   styleUrls: ['./post-details.css'],
 })
 export class PostDetailsComponent implements OnInit {
-  constructor(private postDetailsService: PostDetailsService) {
+  constructor(private postDetailsService: PostDetailsService,private route: ActivatedRoute) {
   }
 
   public postModel: Partial<PostModel> = {}; //todo nauczyc sie partial
   postFetchError: string | null = null;
-
+ a!:string;
 
   ngOnInit(): void {
-    this.postDetailsService.getSpecificPost("683f0ad2ce5a4c4a70c07f53").pipe(
+   this.a = this.route.snapshot.paramMap.get('id')!;//todo zmien zmienną
+
+    this.postDetailsService.getSpecificPost(this.a).pipe(
       map(post => {
         if (!post) {
           throw new Error("Post is null");

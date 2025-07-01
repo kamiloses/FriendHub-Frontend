@@ -30,12 +30,13 @@ export class Comments implements OnInit , OnDestroy {
 
   private subscription: Subscription | null = null;
 
-  @Input({required:true})currentRoute?: string;
+  @Input({required:true})currentRoute!: string;
 
 
 
   ngOnInit(): void {
-
+    console.log("hej "+this.currentRoute)
+//683f0ad2ce5a4c4a70c07f53
     this.subscription = this.httpClient.get<CommentModel[]>("http://localhost:8083/api/comments/"+this.currentRoute).subscribe({
       next: (data) => {
         this.comments = data;
