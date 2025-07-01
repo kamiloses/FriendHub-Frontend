@@ -1,4 +1,16 @@
 
+<div class="publish-comment">
+  <form (ngSubmit)="sendComment()">
+  <img src="facebook-icon.jpg" alt="image not loaded">
+  <textarea placeholder="Publish a comment ..." ></textarea>
+  <i class="fas fa-camera icon"></i>
+  <i class="fas fa-smile"></i>
+
+    <button  type="submit">Publish</button>
+  </form>
+</div>
+
+
 @for (comment of getMainComments(); track comment.id) {
   <div class="comment">
     <div class="user-data">
@@ -13,7 +25,7 @@
       <div class="interactions">
         <i class="fa fa-comment"></i>
       </div>
-      <form (ngSubmit)="sendComment(comment)">
+      <form (ngSubmit)="sendComment()">
         <input type="text" [(ngModel)]="replyInput" name="content">
         <button type="submit">Publish</button>
       </form>
@@ -31,7 +43,7 @@
               <p class="unique-name">&#64;{{reply.userDetails.username}}</p>
               <p class="date">20.04.2024</p>
               <p>{{ reply.content }}</p>
-              <form (ngSubmit)="sendComment(reply)">
+              <form (ngSubmit)="sendComment()">
                 <input type="text" [(ngModel)]="replyInput" name="content">
                 <button type="submit">Publish</button>
               </form>
@@ -46,7 +58,7 @@
                     <p class="unique-name">&#64;{{subReply.userDetails.username}}</p>
                     <p class="date">20.04.2024</p>
                     <p>{{ subReply.content }}</p>
-                    <form (ngSubmit)="sendComment(subReply)">
+                    <form (ngSubmit)="sendComment()">
                       <input type="text" [(ngModel)]="subReplyInput" name="content">
                       <button type="submit">Publish</button>
                     </form>
@@ -62,7 +74,7 @@
                           <p class="unique-name">&#64;{{nestedReply.userDetails.username}}</p>
                           <p class="date">20.04.2024</p>
                           <p>{{ nestedReply.content }}</p>
-                          <form (ngSubmit)="sendComment(nestedReply)">
+                          <form (ngSubmit)="sendComment()">
                             <input type="text" [(ngModel)]="nestedReplyInput" name="content">
                             <button type="submit">Publish</button>
                           </form>

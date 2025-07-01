@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs';
 import {FormsModule} from '@angular/forms';
 import {CommentModel} from './comment.model';
+import {PublishCommentModel} from './publish-comment.model';
 
 @Component({
   selector: 'app-comments',
@@ -55,11 +56,14 @@ export class Comments implements OnInit , OnDestroy {
     }
   }
 
-  sendComment(comment: CommentModel) {
-
-    comment.parentCommentId=comment.id;
-    comment.content='test123'
-    this.subscription = this.httpClient.post<void[]>("http://localhost:8083/api/comments?username=kamiloses",comment).subscribe({});
+//  sendComment(comment: CommentModel) {
+  sendComment() {
+    const commentModel: PublishCommentModel = {
+      postId: this.currentRoute,
+      parentCommentId: null,
+      content: "HEJ"
+    };
+    this.subscription = this.httpClient.post<void[]>("http://localhost:8083/api/comments?username=kamiloses1",commentModel).subscribe({});
     window.location.reload();
   }
 
