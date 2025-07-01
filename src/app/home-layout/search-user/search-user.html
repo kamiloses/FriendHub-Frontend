@@ -5,10 +5,8 @@
       <p class="name">{{user.firstName}} {{user.lastName}}</p>
       <p class="username">&#64;{{user.username}}</p>
       @if (!user.isYourFriend){
-        <button>Add</button>
         <button (click)="onClickUserNotFriend()">Add</button>}
       @else {
-        <button>Remove</button>
         <button (click)="onClickUserMyFriend()">Remove</button>
       }
 

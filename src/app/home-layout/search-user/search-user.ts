@@ -27,11 +27,13 @@ export class SearchUser implements OnInit {
   onClickUserMyFriend(){
 
     this.searchUserService.removeFriend("dsadadsaddsadsa").subscribe()
+    window.location.reload();
 
   }
 
   onClickUserNotFriend(){//todo zmien nazwe
     this.searchUserService.addFriend("dsadadsaddsadsa").subscribe()
+    window.location.reload(); //todo podtem zrob tak by nie trzeba było odswiezac i odrazu zmieniło
 
   }
 

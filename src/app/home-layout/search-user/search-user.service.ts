@@ -21,20 +21,22 @@ export class SearchUserService {
   addFriend(friendUsername:string){
     const headers = new HttpHeaders({
       'friendUsername': friendUsername,
-      'myUsername': this.authService.getUsername()||''//todo popraw to '' potem
+     // 'myUsername': this.authService.getUsername()||''//todo popraw to '' potem
+      'myUsername': "kamiloses1"//todo popraw to '' potem
     });
 
-    return this.http.post("http://localhost:8084/api/friends",{headers})
+    return this.http.post<void>('http://localhost:8084/api/friends',null, {headers})
 
   }
 
   removeFriend(friendUsername:string){
     const headers = new HttpHeaders({
       'friendUsername': friendUsername,
-      'myUsername': this.authService.getUsername()||''//todo popraw to '' potem
+      //'myUsername': this.authService.getUsername()||''//todo popraw to '' potem
+      'myUsername': 'kamiloses1'//todo popraw to '' potem
     });
 
-    return this.http.delete("http://localhost:8084/api/friends",{headers})
+    return this.http.delete<void>("http://localhost:8084/api/friends", { headers });
 
   }
 
