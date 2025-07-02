@@ -1,7 +1,10 @@
 <div class="comment">
   <div class="comment-text">
     <p>{{ comment.content }}</p>
-    <input type="text" placeholder="Abcdefghtrdfanklfakldf">
+    <form (ngSubmit)="sendReply(reply.value,comment.id)">
+      <input #reply type="text" placeholder="send reply... ">
+       <button type="submit">Send Reply</button>
+    </form>
 
 
     @if (comment.replies && comment.replies.length > 0) {
@@ -16,7 +19,7 @@
     <div class="children-comments" style="margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px;">
       @for (child of comment.replies; track child) {
 
-        <app-comment [comment]="child"></app-comment>
+        <app-comment [comment]="child" [currentRoute]="currentRoute"></app-comment>
       }
 
     </div>

@@ -10,6 +10,6 @@
 
 <div class="comments-list">
   @for (comment of comments;track comment) {
-    <app-comment [comment]="comment"></app-comment>
+    <app-comment [comment]="comment" [currentRoute]="currentRoute"></app-comment>
   }
 </div>
