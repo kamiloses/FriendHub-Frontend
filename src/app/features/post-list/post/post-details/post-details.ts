@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {PostDetailsService} from './post-details.service';
 import {map} from 'rxjs';
-import {Comments} from './comments/comments';
 import {PostModel} from '../post.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CommentList} from './comment-list/comment-list';
 
 @Component({
   imports: [
-    Comments
+    CommentList
   ],
   standalone: true,
   selector: 'app-post-details',
