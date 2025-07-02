@@ -10,5 +10,6 @@ export interface CommentModel {
   numberOfComments: number;
   numberOfLikes: number;
   numberOfReplies: number;
+  replies?:Array<CommentModel>;
 
 }

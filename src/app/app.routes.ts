@@ -1,25 +1,31 @@
 import {Routes} from '@angular/router';
-import {PostList} from './home-layout/post-list/post-list';
 import {Login} from './auth/login/login';
-import {HomeLayout} from './home-layout/home-layout';
-import {postListResolver} from './home-layout/post-list/post-list.resolver';
+import {HomeLayout} from './layout/home-layout/home-layout';
+import {SearchUser} from './shared/search-user/search-user';
+import {UserResolver} from './shared/search-user/search-user.resolver';
 import {Register} from './auth/register/register';
-import {PostDetailsComponent} from './home-layout/post-list/post/post-details/post-details';
-import {SearchUser} from './home-layout/search-user/search-user';
-import {UserResolver} from './home-layout/search-user/search-user.resolver';
-import {UserProfile} from './home-layout/user-profile/user-profile';
+import {PostList} from './features/post-list/post-list';
+import {postListResolver} from './features/post-list/post-list.resolver';
+import {PostDetailsComponent} from './features/post-list/post/post-details/post-details';
+import {UserProfileLayout} from './layout/user-profile-layout/user-profile-layout';
+import {UserPostListResolver} from './features/post-list/user-post-list.resolver';
 
 export const routes: Routes = [
 
   // {path: 'post', component: PostDetailsComponent},
+  {path:'profile/kamiloses1',component:UserProfileLayout,
+    children: [
+         {path:"profile/kamiloses1",
+          component:PostList,
+          resolve:{
+          userPosts:UserPostListResolver}},]},
 
 
-  {
+
+      {
     path: '',
     component: HomeLayout,
     children: [
-      {path:'profile/kamiloses1',component:UserProfile},
-
       {
 
 

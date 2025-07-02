@@ -21,15 +21,27 @@ export class PostList implements OnInit {
   constructor(private route: ActivatedRoute,private router:Router,private postListService:PostListService) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      if (data['posts'] === null) {
-        this.router.navigate(['/error']);}
+    if (this.router.url.includes("/profile")) {
+      this.route.data.subscribe(data => {
+        if (data['userPosts'] === null) {
+          this.router.navigate(['/error']);
+        } else {
+          this.fetchedPosts = data['userPosts'];
+        }
+      });
+    }
+
 
       else {
-      this.fetchedPosts = data['posts'];}
-    });
+      this.route.data.subscribe(data => {
+        if (data['posts'] === null) {
+          this.router.navigate(['/error']);
+        } else {
+          this.fetchedPosts = data['posts'];
+        }
+      });
+    }
   }
-
 
 
   postInput!:string

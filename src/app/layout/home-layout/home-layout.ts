@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import {Header} from "./header/header";
-import {LeftSidebar} from "./left-sidebar/left-sidebar";
-import {RightSidebar} from "./right-sidebar/right-sidebar";
 import {RouterOutlet} from '@angular/router';
+import {LeftSidebar} from '../../shared/left-sidebar/left-sidebar';
+import {RightSidebar} from '../../shared/right-sidebar/right-sidebar';
+import {Header} from '../../shared/header/header';
 
 @Component({
   selector: 'app-home-layout',
   standalone:true,
   imports: [
-    Header,
+    RouterOutlet,
     LeftSidebar,
     RightSidebar,
-    RouterOutlet
+    Header
   ],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.css'
