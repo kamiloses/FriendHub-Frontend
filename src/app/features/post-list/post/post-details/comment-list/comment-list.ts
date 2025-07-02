@@ -32,10 +32,11 @@ export class CommentList implements OnInit , OnDestroy {
 
 
   ngOnInit(): void {
-    this.commentListService.findCommentsRelatedWithPost("").subscribe({
+    this.commentListService.findCommentsRelatedWithPost(this.currentRoute).subscribe({
       next:(data)=>{
         this.comments=data
       }})
+
   }
 
 
@@ -46,13 +47,14 @@ export class CommentList implements OnInit , OnDestroy {
     }
   }
 
-//  sendComment(comment: CommentModel) {
+
   sendComment(content: string) {
     const commentModel: PublishCommentModel = {
       postId: this.currentRoute,
-      parentCommentId: null,
+      parentCommentId: null,//todo to
       content: content
     };
+
    this.commentListService.sendComment("kamiloses1",commentModel).subscribe()
 
     window.location.reload();

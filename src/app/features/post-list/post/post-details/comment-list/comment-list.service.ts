@@ -12,14 +12,12 @@ constructor(private http:HttpClient) {}
 
 
   findCommentsRelatedWithPost(postId:string):Observable<CommentModel[]>{
-  postId="6864d2a5a003c97bf705524d";
 
   return this.http.get<CommentModel[]>("http://localhost:8083/api/comments/"+postId)}
 
 
 
   sendComment(username:string,commentModel: PublishCommentModel) {
-        username="kamiloses1"
     return  this.http.post<void[]>("http://localhost:8083/api/comments?username="+username, commentModel);
   }
 

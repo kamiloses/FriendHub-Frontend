@@ -1,10 +1,13 @@
 <div class="comment">
   <div class="comment-text">
     <p>{{ comment.content }}</p>
+    <input type="text" placeholder="Abcdefghtrdfanklfakldf">
+
 
     @if (comment.replies && comment.replies.length > 0) {
-      <button (click)="toggleExpand()" aria-label="Toggle replies">
-        {{ isExpanded ? '−' : '+' }}
+      <button (click)="toggleExpand()" aria-label="Toggle replies" class="toggle-replies">
+        {{ isExpanded ? 'Hide replies' : 'Show replies' }}
+        <span>({{ comment.replies.length }})</span>
       </button>
     }
   </div>
@@ -12,8 +15,10 @@
   @if (isExpanded && comment.replies && comment.replies.length > 0) {
     <div class="children-comments" style="margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px;">
       @for (child of comment.replies; track child) {
+
         <app-comment [comment]="child"></app-comment>
       }
+
     </div>
   }
 </div>

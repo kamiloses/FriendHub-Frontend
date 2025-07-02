@@ -1,3 +1,64 @@
-div{
-  color: white;
+.comment-text {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.comment-text p {
+  margin: 0 0 10px 0;
+  color: #ddd;
+  line-height: 1.4;
+}
+
+.comment-text input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #121212;
+  border: 1px solid #00ffea;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.comment-text button {
+  background: transparent;
+  border: none;
+  color: #00ffea;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 0 5px;
+  user-select: none;
+}
+
+.children-comments {
+  margin-left: 20px;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.toggle-replies {
+  background: transparent;
+  border: none;
+  color: #4da6ff;       /* jaśniejszy, ale mniej jaskrawy błękit */
+  cursor: pointer;
+  font-size: 0.1em;
+  padding: 0;
+  margin-top: 8px;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-replies:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.toggle-replies span {
+  color: #7ea9cc;
+  font-weight: normal;
 }
