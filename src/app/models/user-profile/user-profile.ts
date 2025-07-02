@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {PostList} from '../post-list/post-list';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [],
+  imports: [
+    PostList
+  ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
   standalone:true

@@ -29,5 +29,17 @@ export class PostListService {
     return this.http.post("http://localhost:8080/api/posts/kamiloses1", body);
   }
 
+  getPostsRelatedWithUser():Observable<PostModel[]|null>{
+    const username = "kamiloses1"
+    return this.http
+      .get<PostModel[]>(`http://localhost:8080/api/posts?username=${username}`)//todo dodaj w backendzie
+      .pipe(
+        catchError(err => {
+          console.error('Post Module  error:', err);
+          return of(null);
+        }))
+
+  }
+
 
 }
