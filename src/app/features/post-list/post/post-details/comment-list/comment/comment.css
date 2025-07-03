@@ -1,5 +1,4 @@
 .comment {
-  border: 1px solid red;
   padding: 10px;
   margin-bottom: 15px;
   background-color: #1a1a1a;
@@ -17,6 +16,66 @@
   line-height: 1.4;
 }
 
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.respond-btn {
+  background: transparent;
+  border: none;
+  color: #00ffea;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: normal;
+  user-select: none;
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  text-decoration: underline;
+  margin: 0;
+}
+
+.respond-btn:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.respond-btn.cancel {
+  font-size: 0.8em;
+  color: #999;
+  font-weight: normal;
+  margin-left: 5px;
+}
+
+.toggle-replies {
+  background: transparent;
+  border: none;
+  color: #4da6ff;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+  margin: 0;
+}
+
+.toggle-replies:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.toggle-replies span {
+  color: #7ea9cc;
+  font-weight: normal;
+}
 
 form {
   display: flex;
@@ -24,8 +83,6 @@ form {
   align-items: center;
   margin-top: 10px;
 }
-
-
 
 form input[type="text"] {
   height: 30px;
@@ -59,69 +116,19 @@ form button[type="submit"]:hover {
   color: #121212;
 }
 
-.respond-btn {
-  background: transparent;
-  border: none;
-  color: #00ffea;
-  cursor: pointer;
-  font-size: 0.8em;
-  font-weight: normal;
-  margin-top: 10px;
-  user-select: none;
-  padding: 0;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-  text-decoration: underline;
-}
-
-.respond-btn:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-
-
-.toggle-replies {
-  background: transparent;
-  border: none;
-  color: #4da6ff;
-  cursor: pointer;
-  font-size: 0.9em;
-  padding: 0;
-  margin-top: 15px;
-  user-select: none;
-  display: inline-flex;
+.interactions {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
+  gap: 12px;
+  margin: 0;
 }
 
-.toggle-replies:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
-
-.toggle-replies span {
-  color: #7ea9cc;
-  font-weight: normal;
+.interactions i {
+  margin-right: 6px;
+  color: red;
 }
 
 i {
   color: red;
-  margin-left: 155px;
-}
-
-.interactions {
-  margin-bottom: 10px;
-}
-
-.interactions i {
-  margin-right: 10px;
-}
-.respond-btn.cancel {
-  font-size: 0.8em;
-  color: #999;
-  font-weight: normal;
-  margin-left: 5px;
+  display: inline;
 }

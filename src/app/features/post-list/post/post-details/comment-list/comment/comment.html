@@ -1,46 +1,42 @@
 <div class="comment">
   <div class="comment-text">
     <p>{{ comment.content }}</p>
-    <div class="interactions">
-      <i class="fa fa-comment"> {{ comment.numberOfComments }}</i>
-      <i class="fa fa-retweet"></i> <span>{{ comment.numberOfReplies }}</span>
-      <i class="fa fa-heart"></i> <span>{{ comment.numberOfLikes }}</span>
+
+    <div class="comment-actions">
+      <button
+        (click)="showReplyInput = !showReplyInput"
+        class="respond-btn"
+        [ngClass]="{ 'cancel': showReplyInput }">
+        {{ showReplyInput ? 'Cancel' : 'Respond' }}
+      </button>
+
+      @if (comment.replies && comment.replies.length > 0) {
+        <button (click)="toggleExpand()" aria-label="Toggle replies" class="toggle-replies">
+          {{ isExpanded ? 'Hide replies' : 'Show replies' }}
+          <span>({{ comment.replies.length }})</span>
+        </button>
+      }
+
+      <div class="interactions">
+        <i class="fa fa-comment"> {{ comment.numberOfComments }}</i>
+        <i class="fa fa-retweet"></i> <span>{{ comment.numberOfReplies }}</span>
+        <i class="fa fa-heart"></i> <span>{{ comment.numberOfLikes }}</span>
+      </div>
     </div>
 
-    <button
-      (click)="showReplyInput = !showReplyInput"
-      class="respond-btn"
-      [ngClass]="{ 'cancel': showReplyInput }">
-      {{ showReplyInput ? 'Cancel' : 'Respond' }}
-    </button>
-
-    @if (showReplyInput){
-    <form (ngSubmit)="sendReply(reply.value,comment.id)">
-      <input #reply type="text" placeholder="send reply... ">
-      <button type="submit">Send Reply</button>
-
-    </form>}
-
-
-    @if (comment.replies && comment.replies.length > 0) {
-
-      <button (click)="toggleExpand()" aria-label="Toggle replies" class="toggle-replies">
-        {{ isExpanded ? 'Hide replies' : 'Show replies' }}
-
-
-
-        <span>({{ comment.replies.length }})</span>
-      </button>
+    @if (showReplyInput) {
+      <form (ngSubmit)="sendReply(reply.value,comment.id)">
+        <input #reply type="text" placeholder="send reply... ">
+        <button type="submit">Send Reply</button>
+      </form>
     }
   </div>
 
   @if (isExpanded && comment.replies && comment.replies.length > 0) {
     <div class="children-comments" style="margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px;">
       @for (child of comment.replies; track child) {
-
         <app-comment [comment]="child" [currentRoute]="currentRoute"></app-comment>
       }
-
     </div>
   }
 </div>
