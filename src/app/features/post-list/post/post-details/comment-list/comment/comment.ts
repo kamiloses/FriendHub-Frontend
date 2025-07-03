@@ -3,11 +3,13 @@ import {CommentModel} from './comment.model';
 import {FormsModule} from '@angular/forms';
 import {CommentListService} from '../comment-list.service';
 import {PublishCommentModel} from '../publish-comment.model';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-comment',
   imports: [
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './comment.html',
   styleUrl: './comment.css',
@@ -23,7 +25,7 @@ export class Comment {
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
   }
-
+  showReplyInput = false;
   sendReply(content:string,parentCommentId:string){
 
     const commentModel: PublishCommentModel = {
@@ -35,7 +37,7 @@ export class Comment {
     console.log("HEJ"+commentModel.parentCommentId)
 
     this.commentListService.sendComment("kamiloses1",commentModel).subscribe()
-
+    this.showReplyInput = false;
 
 
 
