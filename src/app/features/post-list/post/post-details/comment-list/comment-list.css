@@ -101,6 +101,11 @@ form input[type="text"] {
   font-size: 0.9em;
 }
 
+textArea{
+  height: 15px;
+  width: 450px;
+}
+
 form button {
   background-color: #00ffea;
   color: #121212;

@@ -40,13 +40,17 @@
 .post-text {
   color: #eee;
   line-height: 1.5;
-  margin-top: -10px;
+  margin-top: 9px;
   display: inline-block;
+  margin-left: 15px;
+
 }
 
 .interactions i {
-  margin-left: 155px;
-  color: #00ffea;
+  margin-left: 12px;
+  color: red;
+  margin-top: 20px;
+
 }
 
 .post-container:hover {

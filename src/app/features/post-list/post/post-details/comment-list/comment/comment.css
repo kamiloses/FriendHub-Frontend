@@ -6,6 +6,7 @@
 }
 
 .comment-text {
+  margin-top: 7px;
   position: relative;
   padding-bottom: 10px;
 }
@@ -131,4 +132,30 @@ form button[type="submit"]:hover {
 i {
   color: red;
   display: inline;
+}
+
+.user-data {
+  display: flex;
+  align-items: center;
+}
+.user-data img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+.name {
+  font-weight: bold;
+  color: #ff9966;
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+.unique-name,
+.date {
+  color: #00ffea;
+  font-size: 0.9em;
+  margin-left: 10px;
+  margin-top: 20px;
 }

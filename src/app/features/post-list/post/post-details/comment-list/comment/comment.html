@@ -1,4 +1,9 @@
 <div class="comment">
+  <div class="user-data"><img src="facebook-icon.jpg" alt="image not loaded">
+    <p class="name">TO jest TEST</p>
+    <p class="unique-name">&#64;kamiloses</p>
+    <p class="date"> 20.04.2024</p>
+  </div>
   <div class="comment-text">
     <p>{{ comment.content }}</p>
 
@@ -18,9 +23,8 @@
       }
 
       <div class="interactions">
-        <i class="fa fa-comment"> {{ comment.numberOfComments }}</i>
-        <i class="fa fa-retweet"></i> <span>{{ comment.numberOfReplies }}</span>
-        <i class="fa fa-heart"></i> <span>{{ comment.numberOfLikes }}</span>
+        <i class="fa fa-retweet">{{ comment.numberOfReplies }} 0</i>
+        <i class="fa fa-heart">{{ comment.numberOfLikes }} 0</i>
       </div>
     </div>
 
