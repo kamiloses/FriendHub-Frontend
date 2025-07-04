@@ -1,76 +1,103 @@
 .comment {
-  padding: 10px;
-  margin-bottom: 15px;
   background-color: #1a1a1a;
-  border-radius: 8px;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 90%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.comment:hover {
+  background-color: #2a2a2a;
+}
+
+.user-data {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-data img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0;
+}
+
+.name {
+  font-weight: bold;
+  color: #ff9966;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.unique-name,
+.date {
+  color: #00ffea;
+  font-size: 0.9rem;
+  margin: 0 0 0 0.5rem;
 }
 
 .comment-text {
-  margin-top: 7px;
-  position: relative;
-  padding-bottom: 10px;
+  color: #ddd;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .comment-text p {
-  margin: 0 0 10px 0;
-  color: #ddd;
-  line-height: 1.4;
+  margin: 0 0 0.75rem 0;
 }
 
 .comment-actions {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 10px;
   flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
 }
 
-.respond-btn {
+.respond-btn,
+.toggle-replies {
   background: transparent;
   border: none;
-  color: #00ffea;
   cursor: pointer;
-  font-size: 0.8em;
-  font-weight: normal;
+  font-size: 0.9rem;
   user-select: none;
   padding: 0;
   opacity: 0.8;
   transition: opacity 0.2s ease;
   text-decoration: underline;
-  margin: 0;
+  color: #00ffea;
 }
 
-.respond-btn:hover {
+.respond-btn:hover,
+.toggle-replies:hover {
   opacity: 1;
   text-decoration: none;
 }
 
 .respond-btn.cancel {
-  font-size: 0.8em;
   color: #999;
-  font-weight: normal;
-  margin-left: 5px;
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 1;
 }
 
 .toggle-replies {
-  background: transparent;
-  border: none;
   color: #4da6ff;
-  cursor: pointer;
-  font-size: 0.9em;
-  padding: 0;
-  user-select: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.4rem;
   opacity: 0.75;
-  transition: opacity 0.2s ease;
-  margin: 0;
-}
-
-.toggle-replies:hover {
-  opacity: 1;
-  text-decoration: underline;
 }
 
 .toggle-replies span {
@@ -80,35 +107,34 @@
 
 form {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 0.75rem;
+  width: 100%;
 }
 
 form input[type="text"] {
-  height: 30px;
   flex: 1;
-  padding: 8px 12px;
-  background-color: #121212;
+  height: 2rem;
+  padding: 0.4rem 0.75rem;
   border: 1px solid #00ffea;
-  border-radius: 15px;
+  border-radius: 1rem;
+  background-color: #121212;
   color: #fff;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   box-sizing: border-box;
   margin: 0;
 }
 
 form button[type="submit"] {
-  height: 30px;
-  margin-right: 30px;
-  flex-shrink: 0;
-  padding: 8px 16px;
-  font-size: 0.9em;
-  border-radius: 15px;
+  padding: 0.4rem 1rem;
+  height: 2rem;
   border: 1px solid #00ffea;
-  background-color: transparent;
+  border-radius: 1rem;
+  background: transparent;
   color: #00ffea;
   cursor: pointer;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -120,42 +146,22 @@ form button[type="submit"]:hover {
 .interactions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
   margin: 0;
+  color: #00ffea;
 }
 
 .interactions i {
-  margin-right: 6px;
-  color: red;
-}
-
-i {
-  color: red;
-  display: inline;
-}
-
-.user-data {
-  display: flex;
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
 }
-.user-data img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-left: 15px;
-  margin-top: 15px;
-}
-.name {
-  font-weight: bold;
-  color: #ff9966;
-  margin-top: 20px;
-  margin-left: 15px;
-}
 
-.unique-name,
-.date {
-  color: #00ffea;
-  font-size: 0.9em;
-  margin-left: 10px;
-  margin-top: 20px;
+.children-comments {
+  margin-left: 1rem;
+  border-left: 1px solid #444;
+  padding-left: 1rem;
+  margin-top: 1rem;
 }

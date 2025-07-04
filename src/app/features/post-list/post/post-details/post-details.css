@@ -1,66 +1,76 @@
 .post-container {
   background-color: #121212;
   font-family: Arial, sans-serif;
-  border-bottom: #00ffea solid 1px;
-  width: 44.5vw;
-  margin-left: 383px;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 60px;
+  border-bottom: 1px solid #00ffea;
+  width: 90%;
+  max-width: 600px;
+  margin-left: 390px;
+  margin-top: 75px;
+  padding: 1rem;
+  border-radius: 3rem;
+  transition: background-color 0.3s;
+}
+
+.post-container:hover {
+  background-color: #1e1e1e;
+  cursor: pointer;
 }
 
 .user-data {
   display: flex;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .user-data img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-left: 15px;
-  margin-top: 15px;
+  object-fit: cover;
 }
 
 .name {
   font-weight: bold;
   color: #ff9966;
-  margin-top: 20px;
-  margin-left: 15px;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 .unique-name,
 .date {
   color: #00ffea;
-  font-size: 0.9em;
-  margin-left: 10px;
-  margin-top: 20px;
+  font-size: 0.9rem;
+  margin: 0 0 0 0.5rem;
 }
 
 .post-text {
   color: #eee;
-  line-height: 1.5;
-  margin-top: 9px;
-  display: inline-block;
-  margin-left: 15px;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+  margin-left: 0;
+}
 
+.interactions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: #00ffea;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.3s;
 }
 
 .interactions i {
-  margin-left: 12px;
-  color: red;
-  margin-top: 20px;
-
-}
-
-.post-container:hover {
-  cursor: pointer;
+  color: inherit;
+  margin: 0;
 }
 
 .retweeted {
   color: #8e24aa;
   background-color: rgba(142, 36, 170, 0.1);
-  padding: 5px;
+  padding: 0.3rem;
   border-radius: 50%;
   transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -68,20 +78,20 @@
 .liked {
   color: #ff0000;
   background-color: rgba(255, 0, 0, 0.1);
-  padding: 5px;
+  padding: 0.3rem;
   border-radius: 50%;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-
 .error-container {
   background-color: #2a2a2a;
   color: #ff6666;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #ff6666;
-  border-radius: 10px;
-  margin-top: 60px;
-  width: 44.5vw;
-  margin-left: 383px;
+  border-radius: 1rem;
+  margin: 60px auto 0;
+  width: 90%;
+  max-width: 600px;
   font-family: Arial, sans-serif;
+  text-align: center;
 }
