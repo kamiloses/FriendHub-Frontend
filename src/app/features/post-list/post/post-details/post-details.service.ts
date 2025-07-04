@@ -12,10 +12,7 @@ export class PostDetailsService{
 
 
   getSpecificPost(postId:string):Observable<PostModel>{
-  return   this.http.get<PostModel>("http://localhost:8080/api/posts/"+postId)
-
-
-  }
+  return   this.http.get<PostModel>("http://localhost:8080/api/posts/"+postId)}
 
 
 }

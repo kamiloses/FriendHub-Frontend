@@ -48,6 +48,7 @@ export class PostList implements OnInit {
 
 
   sendPost(){
+    this.postInput=""
     this.postListService.sendPost(this.postInput).subscribe({next:()=> {
       this.postInput='';
       window.location.reload(); //todo zobacz jak to jest ze klasa window moge ją wywołac bez new i bez constructora

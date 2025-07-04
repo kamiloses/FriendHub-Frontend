@@ -1,6 +1,6 @@
 import {Component, Input, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {NgClass} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {LikeService} from './like.service';
 import {RetweetService} from './retweet.service';
@@ -10,7 +10,8 @@ import {PostModel} from './post.model';
   selector: 'app-post',
   imports: [
     RouterLink,
-    NgClass
+    NgClass,
+    DatePipe
   ],
   templateUrl: './post.html',
   standalone: true,

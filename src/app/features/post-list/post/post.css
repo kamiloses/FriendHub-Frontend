@@ -1,61 +1,69 @@
 .post-container {
   background-color: #121212;
   font-family: Arial, sans-serif;
-  border-bottom: #00ffea solid 1px;
-  width: 44.5vw;
-  margin-left: 383px;
+  border-bottom: 1px solid #00ffea;
+  width: 90%;
+  max-width: 600px;
+  margin-left: 385px;
+  margin-top: 10px;
+  padding: 1rem;
+  border-radius: 3rem;
+  transition: background-color 0.3s;
+}
+
+.post-container:hover {
+  background-color: #1e1e1e;
+  cursor: pointer;
 }
 
 .user-data {
   display: flex;
-}
-
-p {
-  margin-top: 20px;
-  margin-left: 15px;
-}
-
-img {
-  margin-top: 15px;
-  margin-left: 15px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
 .name {
   font-weight: bold;
   color: #ff9966;
+  margin-right: 10px;
 }
 
-.unique-name, .date {
+.unique-name,
+.date {
   color: #00ffea;
   font-size: 0.9em;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .post-text {
   color: #eee;
-  line-height: 1.5;
-  margin-top: -10px;
-  display: inline-block;
+  line-height: 1.6;
+  margin-top: 10px;
+  font-size: 1.05em;
 }
 
-i {
-  margin-left: 155px;
+.interactions {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
   color: #00ffea;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.3s;
+
+}
+.interactions i:hover {
+  transform: scale(1.2);
 }
 
-.post-container:hover {
-  cursor: pointer;
-}
+
 
 .retweeted {
   color: #8e24aa;
   background-color: rgba(142, 36, 170, 0.1);
   padding: 5px;
   border-radius: 50%;
-  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .liked {
@@ -63,17 +71,6 @@ i {
   background-color: rgba(255, 0, 0, 0.1);
   padding: 5px;
   border-radius: 50%;
-  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.liked{
-  color: red;
 
-
-}
-
-.retweeted{
-  color: deeppink;
-
-
-}
