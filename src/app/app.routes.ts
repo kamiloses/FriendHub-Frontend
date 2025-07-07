@@ -9,6 +9,7 @@ import {postListResolver} from './features/post-list/post-list.resolver';
 import {PostDetailsComponent} from './features/post-list/post/post-details/post-details';
 import {UserProfileLayout} from './layout/user-profile-layout/user-profile-layout';
 import {UserPostListResolver} from './features/post-list/user-post-list.resolver';
+import {AuthGuard} from './auth/auth.guard';
 
 export const routes: Routes = [
 
@@ -24,12 +25,12 @@ export const routes: Routes = [
 
       {
     path: '',
-    component: HomeLayout,
+    component: HomeLayout,canActivate:[AuthGuard],
     children: [
       {
 
 
-        path: 'search',//todo dynamiczne search chyba i sprawdz czy ts ma zawierac nazwe component
+        path: 'search',
         component: SearchUser
         ,resolve:{
           searchedUsers:UserResolver

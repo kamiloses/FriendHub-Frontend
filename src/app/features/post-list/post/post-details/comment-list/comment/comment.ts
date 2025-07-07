@@ -34,9 +34,9 @@ export class Comment {
       content: content
     };
 
-    console.log("HEJ"+commentModel.parentCommentId)
 
-    this.commentListService.sendComment("kamiloses1",commentModel).subscribe()
+    this.commentListService.sendComment("kamiloses1",commentModel).subscribe();
+    window.location.reload();
     this.showReplyInput = false;
 
 
