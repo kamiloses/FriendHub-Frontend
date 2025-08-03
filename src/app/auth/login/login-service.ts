@@ -8,11 +8,13 @@ import {LoginModel} from './loginModel';
 })
 export class LoginService {
 
+  private readonly apiUrl = 'http://localhost:7070/api/login';
+
 constructor(private http: HttpClient) {}
 
 
   login(loginData:LoginModel):Observable<LoginResponse> {
-   return  this.http.post<LoginResponse>("http://localhost:7070/api/login", loginData)
+   return  this.http.post<LoginResponse>(this.apiUrl, loginData)
   }
 
 

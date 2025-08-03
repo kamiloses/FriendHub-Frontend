@@ -2,26 +2,32 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="username-container">
       <label for="username">Username</label>
-      <input [class.username-error]="usernameInvalid" id="username" type="text" name="username" placeholder="Username" formControlName="username">
+      <input [class.username-error]="usernameInvalid" id="username" type="text" name="username" placeholder="Username"
+             formControlName="username">
     </div>
 
     <div class="password-container">
       <label for="password">Password</label>
-      <input [class.password-error]="passwordInvalid" id="password" type="password" name="password" placeholder="Password" formControlName="password">
+      <input [class.password-error]="passwordInvalid" id="password" type="password" name="password"
+             placeholder="Password" formControlName="password">
 
     </div>
 
-    @if (serverError()!=null) {
-      <span>{{serverError()}}</span>
+    @if (serverError()) {
+      <div class="server-error">{{ serverError() }}</div>
     }
 
-    <button class="button" type="submit">Login</button>
+    <button class="button" type="submit" [disabled]="isLoading()">
+      @if (isLoading()) {
+        Loading...
+      } @else {
+        Login
+      }
+    </button>
   </form>
 
   <div class="registration-container">
-    <span >
-      Don't have an account ?
-    </span>
+    <span>Don't have an account ?</span>
 
   </div>
 

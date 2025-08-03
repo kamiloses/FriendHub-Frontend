@@ -7,7 +7,7 @@ body {
   max-width: 320px;
   margin: 80px auto;
   padding: 20px;
-  background: white;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -29,6 +29,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+  transition: border-color 0.2s ease;
 }
 
 input:focus {
@@ -51,18 +52,24 @@ input:focus {
   background-color: #357abd;
 }
 
-.registration-container{
+.registration-container {
   margin-top: 20px;
-  margin-left: 70px;
-
+  text-align: center;
 }
 
-.username-error{
-  background-color: red;
-
+.username-error {
+  border-color: red;
+  background-color: #ffe6e6;
 }
 
-.password-error{
+.password-error {
+  border-color: red;
+  background-color: #ffe6e6;
+}
 
-  background-color: red;
+.server-error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: block;
 }
