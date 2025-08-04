@@ -24,7 +24,7 @@ export class RegisterComponent {
 
   public registerForm = new FormGroup({
     firstName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,20}$")]),
-    lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),
+    lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),//todo dodac generyki w login
     username: new FormControl<string>('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_]{5,20}$")]),
     password: new FormControl<string>('', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$")])
   });
@@ -53,18 +53,22 @@ export class RegisterComponent {
       next: (response) => {
         this.isLoading.set(false);
 
-        if (response === 'User signed up successfully') {
+        if (response.message === 'User signed up successfully') {
           this.registerForm.reset();
           // TODO: navigate to /login
-        } else if (response === 'this Username already exists') {
-          this.serverError.set('This username already exists');
-        } else {
-          this.serverError.set('There was some error on the server side');
+        }
+        else {
+            this.serverError.set('Unexpected error occurred');
         }
       },
-      error: () => {
+      error: (err) => {
         this.isLoading.set(false);
-        this.serverError.set('There was some error on the server side');
+
+        if (err.error.status  === 'USER_ALREADY_EXISTS') {
+          this.serverError.set('This username already exists');
+        } else {
+          this.serverError.set('Unexpected error occurred');
+        }
       }
     })
   }
