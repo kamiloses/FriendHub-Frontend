@@ -9,9 +9,10 @@ import {RegistrationModel} from './registration-model';
     ReactiveFormsModule
   ],
   templateUrl: './register.html',
-  styleUrl: './register.css'
+  styleUrl: './register.css',
+  standalone: true,
 })
-export class Register {
+export class RegisterComponent {
 
 
   serverError = signal<string | null>(null);
@@ -22,65 +23,49 @@ export class Register {
 
 
   public registerForm = new FormGroup({
-    firstName: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[A-Za-z]{2,20}$")
-    ]),
-    lastName: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[A-Za-z]{2,30}$")
-    ]),
-    username: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z0-9_]{5,20}$")
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$")
-    ])
+    firstName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,20}$")]),
+    lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),
+    username: new FormControl<string>('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_]{5,20}$")]),
+    password: new FormControl<string>('', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$")])
   });
 
-
-  get firstNameInvalid(): boolean {
-    const firstNameInput = this.registerForm.get('firstName');
-    return !!(firstNameInput?.touched && firstNameInput.invalid);
+  isInvalid(controlName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    return !!(control?.touched && control.invalid);
   }
-
-
-  get lastNameInvalid(): boolean {
-    const lastNameInput = this.registerForm.get('lastName');
-    return !!(lastNameInput?.touched && lastNameInput.invalid);
-  }
-
-
-  get usernameInvalid(): boolean {
-    const usernameInput = this.registerForm.get('username');
-    return !!(usernameInput?.touched && usernameInput.invalid);
-  }
-
-
-  get passwordInvalid(): boolean {
-    const passwordInput = this.registerForm.get('password');
-    return !!(passwordInput?.touched && passwordInput.invalid);
-  }
-
 
   onSubmit() {
-    if (this.registerForm.valid) {
+    if (!this.registerForm.valid) {
       this.serverError.set('Please correct the form errors');
       this.registerForm.markAllAsTouched();
       return;
     }
     this.serverError.set(null);
     this.isLoading.set(true);
-    const registrationModel:RegistrationModel={
-      firstName:this.registerForm.value.firstName!,
-      lastName:this.registerForm.value.lastName!,
-      username:this.registerForm.value.username!,
-      password:this.registerForm.value.password!
+    const registrationModel: RegistrationModel = {
+      firstName: this.registerForm.value.firstName!,
+      lastName: this.registerForm.value.lastName!,
+      username: this.registerForm.value.username!,
+      password: this.registerForm.value.password!
     }
 
+    this.registerService.signUp(registrationModel).subscribe({
+      next: (response) => {
+        this.isLoading.set(false);
 
-
+        if (response === 'User signed up successfully') {
+          this.registerForm.reset();
+          // TODO: navigate to /login
+        } else if (response === 'this Username already exists') {
+          this.serverError.set('This username already exists');
+        } else {
+          this.serverError.set('There was some error on the server side');
+        }
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.serverError.set('There was some error on the server side');
+      }
+    })
   }
 }

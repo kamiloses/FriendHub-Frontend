@@ -36,6 +36,24 @@ input:focus {
   outline: none;
 }
 
+input.invalid {
+  border-color: #e74c3c;
+  background-color: #fdecea;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.server-error {
+  color: #e74c3c;
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .button {
   width: 100%;
   padding: 10px;
@@ -49,6 +67,11 @@ input:focus {
 
 .button:hover {
   background-color: #357abd;
+}
+
+.button:disabled {
+  background-color: #a0c4f7;
+  cursor: not-allowed;
 }
 
 .registration-footer {
