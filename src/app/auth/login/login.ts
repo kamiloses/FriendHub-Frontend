@@ -1,7 +1,7 @@
 import {Component, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LoginService} from './login-service';
-import {LoginModel} from './loginModel';
+import {LoginModel} from './login-model';
 import {take} from 'rxjs';
 
 const loginValidation = /^(?!\s*$)[a-zA-Z0-9_]{7,}$/;
