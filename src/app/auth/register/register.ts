@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })

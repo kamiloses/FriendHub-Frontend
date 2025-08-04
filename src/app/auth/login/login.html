@@ -2,8 +2,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="username-container">
       <label for="username">Username</label>
-      <input [class.username-error]="usernameInvalid" id="username" type="text" name="username" placeholder="Username"
-             formControlName="username">
+      <input [class.username-error]="usernameInvalid" id="username" type="text" name="username" placeholder="Username" formControlName="username">
     </div>
 
     <div class="password-container">
