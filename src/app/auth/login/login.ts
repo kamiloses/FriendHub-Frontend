@@ -26,11 +26,11 @@ export class LoginComponent {
   }
 
   public loginForm = new FormGroup({
-    username: new FormControl('', [
+    username: new FormControl<string>('', [
       Validators.required,
       Validators.pattern(loginValidation)
     ]),
-    password: new FormControl('', [
+    password: new FormControl<string>('', [
       Validators.required,
       Validators.pattern(loginValidation)
     ])
@@ -40,7 +40,7 @@ export class LoginComponent {
     const usernameInput = this.loginForm.get('username');
     return !!(usernameInput?.touched && usernameInput.invalid);
   }
-
+//todo zamiast 2 metod takich zrób jedną jak w register
   get passwordInvalid(): boolean {
     const passwordInput = this.loginForm.get('password');
     return !!(passwordInput?.touched && passwordInput.invalid);
@@ -68,7 +68,7 @@ export class LoginComponent {
           // this.authService.login(response.token);
           // this.router.navigate(['/']);
         } else {
-          this.serverError.set('Unexpected server response')
+          this.serverError.set('Unexpected server response')//todo czy ten if else potrzebny ?
         }
       },
       error: (err) => {

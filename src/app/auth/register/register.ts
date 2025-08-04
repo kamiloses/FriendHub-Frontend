@@ -52,22 +52,26 @@ export class RegisterComponent {
     this.registerService.signUp(registrationModel).subscribe({
       next: (response) => {
         this.isLoading.set(false);
+        this.registerForm.reset();
+        console.info(response);
+        // TODO: navigate to /login
 
-        if (response.message === 'User signed up successfully') {
-          this.registerForm.reset();
-          // TODO: navigate to /login
-        }
-        else {
-            this.serverError.set('Unexpected error occurred');
-        }
+
       },
       error: (err) => {
         this.isLoading.set(false);
 
-        if (err.error.status  === 'USER_ALREADY_EXISTS') {
+        if (Array.isArray(err.error)) {
+          this.serverError.set(err.error.join(', '));
+          console.error(err.error);
+        }
+        else if (err.error?.status === 'USER_ALREADY_EXISTS') {
           this.serverError.set('This username already exists');
-        } else {
+          console.error(err.error);
+        }
+        else {
           this.serverError.set('Unexpected error occurred');
+          console.error(err.error);
         }
       }
     })
