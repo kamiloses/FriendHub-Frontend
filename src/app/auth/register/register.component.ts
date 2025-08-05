@@ -1,15 +1,16 @@
 import {Component, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RegisterService} from './register-service';
-import {RegistrationModel} from './registration-model';
+import {RegisterService} from './register.service';
+import {RegisterRequestModel} from './register-request.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule
   ],
-  templateUrl: './register.html',
-  styleUrl: './register.css',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
   standalone: true,
 })
 export class RegisterComponent {
@@ -18,13 +19,13 @@ export class RegisterComponent {
   serverError = signal<string | null>(null);
   isLoading = signal<boolean>(false);
 
-  constructor(private registerService: RegisterService) {
+  constructor(private registerService: RegisterService,private router: Router) {
   }
 
 
   public registerForm = new FormGroup({
     firstName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,20}$")]),
-    lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),//todo dodac generyki w login
+    lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),
     username: new FormControl<string>('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_]{5,20}$")]),
     password: new FormControl<string>('', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$")])
   });
@@ -42,7 +43,7 @@ export class RegisterComponent {
     }
     this.serverError.set(null);
     this.isLoading.set(true);
-    const registrationModel: RegistrationModel = {
+    const registrationModel: RegisterRequestModel = {
       firstName: this.registerForm.value.firstName!,
       lastName: this.registerForm.value.lastName!,
       username: this.registerForm.value.username!,
@@ -54,9 +55,7 @@ export class RegisterComponent {
         this.isLoading.set(false);
         this.registerForm.reset();
         console.info(response);
-        // TODO: navigate to /login
-
-
+        this.router.navigate(['auth/login']);
       },
       error: (err) => {
         this.isLoading.set(false);

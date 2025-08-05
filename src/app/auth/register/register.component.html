@@ -65,7 +65,13 @@
       }
     </div>
 
-    <button class="button" type="submit" [disabled]="isLoading()">Register</button>
+    <button class="button" type="submit" [disabled]="isLoading()">
+      @if (isLoading()) {
+        Loading...
+      } @else {
+        Register
+      }
+    </button>
 
     @if (serverError()) {
       <div class="server-error">
