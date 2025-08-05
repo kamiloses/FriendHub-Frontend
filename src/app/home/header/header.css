@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0d0d0d;
+  color: #eee;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 74.5vw;
+  background-color: #121212;
+  border-bottom: 2px solid #00ffea;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  border-top-right-radius: 10px;
+  box-shadow: 0 0 15px #00ffea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friendhub {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff9966;
+  text-shadow: 0 0 5px #ff9966, 0 0 10px #ff9966;
+  letter-spacing: 2px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-container input {
+  width: 15rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #00ffea;
+  border-radius: 2rem;
+  font-size: 1rem;
+  background-color: #1a1a1a;
+  color: #00ffea;
+  box-shadow: 0 0 10px #00ffea inset;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-container input::placeholder {
+  color: #008f7e;
+}
+
+.search-container input:focus {
+  border-color: #00fff7;
+  box-shadow: 0 0 20px #00fff7 inset;
+  outline: none;
+}
+
+.search-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button i {
+  color: #00ffea;
+  font-size: 1.3rem;
+  text-shadow: 0 0 8px #00ffea;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.search-button i:hover {
+  color: #00fff7;
+  text-shadow: 0 0 15px #00fff7;
+}

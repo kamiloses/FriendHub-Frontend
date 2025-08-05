@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header >
+  <div class="header-center">
+    <span  class="friendhub">FriendHub</span>
+  </div>
+  <div class="header-right">
+
+    <div class="search-container">
+      <form (ngSubmit)="searchUsers()">
+        <input type="text" placeholder="Search..." [(ngModel)]="searchedUser" name="searchedUser" required />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</header>

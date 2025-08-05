@@ -1,0 +1,86 @@
+.left-sidebar {
+  width: 390px;
+  height: 100vh;
+  border-right: 1px solid #00ffea;
+  background-color: #121212;
+  position: fixed;
+  left: 0;
+  top: 0;
+  color: #eee;
+}
+
+ul {
+  font-size: 25px;
+}
+
+a {
+  color: #00ffea;
+  text-decoration: none;
+}
+
+span {
+  color: #00ffea;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+}
+
+li {
+  margin-top: 40px;
+  text-decoration: none;
+  list-style: none;
+  margin-left: 15px;
+}
+
+ul li img {
+  border-radius: 50%;
+  border: 2px solid #00ffea;
+  box-shadow: 0 0 8px #00ffea;
+}
+
+button {
+  background-color: transparent;
+  color: #00ffea;
+  border: 2px solid #00ffea;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #00ffea;
+  color: #121212;
+  box-shadow: 0 0 10px #00ffea;
+}
+
+button:active {
+  background-color: #00e5e0;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 255, 234, 0.6);
+}
+
+.username-section {
+  margin-top: 330px;
+  display: flex;
+}
+
+.username-section span {
+  margin-left: 10px;
+  font-size: 25px;
+  margin-top: 16px;
+  color: #00ffea;
+}
+
+.username-section img {
+  margin-left: 40px;
+  border-radius: 50%;
+  border: 2px solid #00ffea;
+  box-shadow: 0 0 8px #00ffea;
+}
