@@ -84,3 +84,7 @@ button:focus {
   border: 2px solid #00ffea;
   box-shadow: 0 0 8px #00ffea;
 }
+.active {
+  color: red;
+  font-weight: bold;
+}

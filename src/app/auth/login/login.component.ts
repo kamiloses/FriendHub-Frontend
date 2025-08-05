@@ -4,6 +4,7 @@ import {LoginService} from './login.service';
 import {LoginRequestModel} from './login-request.model';
 import {take} from 'rxjs';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
 
 const loginValidation = /^(?!\s*$)[a-zA-Z0-9_]{7,}$/;
 
@@ -22,7 +23,7 @@ export class LoginComponent {
   serverError = signal<string | null>(null);
   isLoading = signal<boolean>(false);
 
-  constructor(private loginService: LoginService,private router: Router) {
+  constructor(private loginService: LoginService,private authService:AuthService,private router: Router) {
   }
 
   public loginForm = new FormGroup({
@@ -53,7 +54,7 @@ export class LoginComponent {
       next: (response: LoginResponseModel) => {
         this.isLoading.set(false);
 
-          // this.authService.login(response.token);
+           this.authService.login(response.token);
            this.router.navigate(['home']);
       },
       error: (err) => {

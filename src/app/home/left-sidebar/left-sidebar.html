@@ -2,9 +2,8 @@
   <ul class="nav-links">
     <li><img src="favicon.ico" alt="img not loaded"></li>
 
-    <li><a routerLink="/home"><i class="fas fa-home"></i>Home</a></li>
-    <li><a routerLink="/home/profile"><i class="fas fa-user"></i> Profile</a></li>
-<!--    activerouterLink-->
+    <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-home"></i>Home</a></li>
+    <li><a routerLink="/home/profile" routerLinkActive="active"><i class="fas fa-user"></i> Profile</a></li>
     <li><button >logout</button></li>
   </ul>
 
