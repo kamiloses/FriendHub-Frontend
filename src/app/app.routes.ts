@@ -12,4 +12,4 @@ export const routes: Routes = [
     ]
 
   }
-];
+];//todo nazewnictwo componentów czy nazwa component ma byc czy usunąc. dokladnie sprawdz.
