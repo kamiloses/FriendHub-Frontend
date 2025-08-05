@@ -2,12 +2,12 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="username-container">
       <label for="username">Username</label>
-      <input [class.username-error]="usernameInvalid" id="username" type="text" name="username" placeholder="Username" formControlName="username">
+      <input [class.username-error]="isInvalid('username')" id="username" type="text" name="username" placeholder="Username" formControlName="username">
     </div>
 
     <div class="password-container">
       <label for="password">Password</label>
-      <input [class.password-error]="passwordInvalid" id="password" type="password" name="password"
+      <input [class.password-error]="isInvalid('password')" id="password" type="password" name="password"
              placeholder="Password" formControlName="password">
 
     </div>

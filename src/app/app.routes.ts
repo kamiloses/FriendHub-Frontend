@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import {AuthLayoutComponent} from './auth/auth-layout';
-import {LoginComponent} from './auth/login/login';
+import {LoginComponent} from './auth/login/login.component';
 import {RegisterComponent} from './auth/register/register';
 import {HomeLayout} from './home/home-layout';
 import {UserProfile} from './user-profile/user-profile';

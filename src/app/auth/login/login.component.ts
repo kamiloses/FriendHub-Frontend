@@ -1,8 +1,9 @@
 import {Component, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {LoginService} from './login-service';
-import {LoginModel} from './login-model';
+import {LoginService} from './login.service';
+import {LoginRequestModel} from './login-request.model';
 import {take} from 'rxjs';
+import {Router} from '@angular/router';
 
 const loginValidation = /^(?!\s*$)[a-zA-Z0-9_]{7,}$/;
 
@@ -12,9 +13,8 @@ const loginValidation = /^(?!\s*$)[a-zA-Z0-9_]{7,}$/;
   imports: [
     ReactiveFormsModule
   ],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
-  standalone: true
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
@@ -22,28 +22,16 @@ export class LoginComponent {
   serverError = signal<string | null>(null);
   isLoading = signal<boolean>(false);
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService,private router: Router) {
   }
 
   public loginForm = new FormGroup({
-    username: new FormControl<string>('', [
-      Validators.required,
-      Validators.pattern(loginValidation)
-    ]),
-    password: new FormControl<string>('', [
-      Validators.required,
-      Validators.pattern(loginValidation)
-    ])
+    username: new FormControl<string>('', [Validators.required, Validators.pattern(loginValidation)]),
+    password: new FormControl<string>('', [Validators.required, Validators.pattern(loginValidation)])
   });
-
-  get usernameInvalid(): boolean {
-    const usernameInput = this.loginForm.get('username');
-    return !!(usernameInput?.touched && usernameInput.invalid);
-  }
-//todo zamiast 2 metod takich zrób jedną jak w register
-  get passwordInvalid(): boolean {
-    const passwordInput = this.loginForm.get('password');
-    return !!(passwordInput?.touched && passwordInput.invalid);
+  isInvalid(controlName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return !!(control?.touched && control.invalid);
   }
 
 
@@ -56,20 +44,17 @@ export class LoginComponent {
     this.serverError.set(null);
     this.isLoading.set(true);
 
-    const login: LoginModel = {
+    const login: LoginRequestModel = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     };
 
     this.loginService.login(login).pipe(take(1)).subscribe({ //todo ogarnij take 1
-      next: (response: LoginResponse) => {
+      next: (response: LoginResponseModel) => {
         this.isLoading.set(false);
-        if (response.token) {
+
           // this.authService.login(response.token);
-          // this.router.navigate(['/']);
-        } else {
-          this.serverError.set('Unexpected server response')//todo czy ten if else potrzebny ?
-        }
+           this.router.navigate(['home']);
       },
       error: (err) => {
         console.error('Login error:', err);
