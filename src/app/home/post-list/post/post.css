@@ -1,0 +1,75 @@
+.post-container {
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  border-bottom: 1px solid #e0e0e0;
+  width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+/*zmiana*/
+
+  margin-top: 100px;
+  margin-left: 400px;
+
+}
+
+.post-container:hover {
+  box-shadow: 0 4px 12px rgba(63,81,181,0.3);
+}
+
+.user-data {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.name {
+  font-weight: 700;
+  color: #3f51b5;
+  font-size: 1.1rem;
+}
+
+.unique-name,
+.date {
+  color: #ff7043;
+  font-size: 0.9rem;
+}
+
+.post-text {
+  color: #333;
+  line-height: 1.5;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.interactions {
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  color: #3f51b5;
+  transition: transform 0.2s, color 0.3s;
+}
+
+.interactions i:hover {
+  transform: scale(1.2);
+  color: #ff7043;
+}
+
+.retweeted {
+  color: #ff7043;
+  background-color: rgba(255, 112, 67, 0.2);
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.liked {
+  color: #3f51b5;
+  background-color: rgba(63, 81, 181, 0.2);
+  padding: 6px;
+  border-radius: 50%;
+}

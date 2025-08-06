@@ -1,12 +1,14 @@
 <div class="post-list-container">
   <div class="publish-post">
     <!--    <img src="facebook-icon.jpg" alt="image not loaded">-->
-    <textarea placeholder="What's on your mind ?!"></textarea>
-    <button >Publish</button>
+    <textarea placeholder="What's on your mind ?"></textarea>
   </div>
 
+  @for (post of posts;track post.id){
+    <app-post [post]="post"></app-post>
 
 
 
 
+  }
 </div>
