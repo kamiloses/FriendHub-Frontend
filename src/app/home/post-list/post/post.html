@@ -1,4 +1,4 @@
-<div class="post-container" [routerLink]="['/post/'+post.id]">
+<div class="post-container" [routerLink]="['home/post/100']">
   <div class="user-data">
     <p class="name">{{post.user.firstName + " " + post.user.lastName}}</p>
     <p class="unique-name">&#64;{{post.user.username}}</p>
@@ -10,12 +10,10 @@
 
     <div class="interactions">
       <i [ngClass]="post.retweetedByMe ? 'retweeted': 'not-retweeted'"
-         (click)="toggleRetweet(post,$event)"
          class="fa fa-retweet"></i>
       <span>{{post.retweetCount}}</span>
 
       <i [ngClass]="post.likedByMe ? 'liked': 'not-liked'"
-         (click)="toggleLike(post,$event)"
          class="fa fa-heart"></i>
       <span>{{post.likeCount}}</span>
     </div>

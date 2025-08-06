@@ -6,6 +6,7 @@ import {HomeLayout} from './home/home-layout';
 import {UserProfile} from './user-profile/user-profile';
 import {PostListComponent} from './home/post-list/post-list.component';
 import {Post} from './home/post-list/post/post';
+import {PostDetails} from './home/post-list/post/post-details/post-details';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'auth/login', pathMatch: 'full'},//todo pathmatch
@@ -20,8 +21,7 @@ export const routes: Routes = [
     path: 'home', component: HomeLayout, children: [{
       path: 'profile', component: UserProfile},
       { path: '', component: PostListComponent },
-      { path: 'post/100', component: Post },
-      { path: 'profile', component: PostListComponent }
+      { path: 'home/post/100', component: PostDetails },
     ]
   }
 
