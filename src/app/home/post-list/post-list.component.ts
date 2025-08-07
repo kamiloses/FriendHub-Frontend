@@ -16,14 +16,14 @@ import {PostListService} from './post-list.service';
 })
 export class PostListComponent implements OnInit {
 
-  //readOnly
   serverError=signal<string|null>(null)
   isLoading=signal<boolean>(false)
 
   constructor(private postListService: PostListService) {
   }
 
-  fetchedPosts!: PostModelResponse[]|null;
+   fetchedPosts=signal<PostModelResponse[]>([])
+
 
    ngOnInit(): void {
     this.loadPosts();
@@ -33,7 +33,7 @@ export class PostListComponent implements OnInit {
      this.isLoading.set(true);
     this.postListService.getAllPosts().subscribe({
       next: (posts) => {
-        this.fetchedPosts = posts;
+        this.fetchedPosts.set(posts);
         this.isLoading.set(false);
       },
       error: (err) => {

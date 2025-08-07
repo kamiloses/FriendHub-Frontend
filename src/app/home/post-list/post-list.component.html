@@ -17,7 +17,7 @@
     </div>
   }
   @else {
-    @for (post of fetchedPosts; track post.id) {
+    @for (post of fetchedPosts(); track post.id) {
       <app-post [post]="post"></app-post>
     }
 

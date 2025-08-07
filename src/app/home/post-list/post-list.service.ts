@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class PostListService {
 
-
+  private readonly apiUrl = 'http://localhost:8080/api/posts';
 
   constructor(private http: HttpClient) {
   }
@@ -17,7 +17,7 @@ export class PostListService {
   getAllPosts(): Observable<PostModelResponse[]> {
     const username = "kamiloses123";
     return this.http.get<PostModelResponse[]>(
-      `http://localhost:8080/api/posts?username=${username}`
+      `${this.apiUrl}?username=${username}`
     );
   }
 
