@@ -3,18 +3,25 @@
     <!--    <img src="facebook-icon.jpg" alt="image not loaded">-->
     <textarea placeholder="What's on your mind ?"></textarea>
   </div>
-  @if (!serverError()){
-  @for (post of fetchedPosts;track post.id){
-    <app-post [post]="post"></app-post>
-  }}
-    @else{
-      <div class="error-message">
-        <span class="error-message-icon">⚠️</span>
-       {{serverError()}}
-        <button (click)="reloadPosts()">Try Again ...</button>
-      </div>
 
+
+  @if (isLoading()) {
+    <div class="loading-message">
+      ⏳ Loading posts...
+    </div>}
+  @else if (serverError()) {
+    <div class="error-message">
+      <span class="error-message-icon">⚠️</span>
+      {{ serverError() }}
+      <button (click)="reloadPosts()">Try Again ...</button>
+    </div>
+  }
+  @else {
+    @for (post of fetchedPosts; track post.id) {
+      <app-post [post]="post"></app-post>
     }
+
+  }
 
 
 </div>

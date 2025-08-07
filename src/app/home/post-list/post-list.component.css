@@ -105,3 +105,26 @@ img {
 .error-message button:hover {
   background-color: #f4511e;
 }
+.loading-message {
+  background-color: #e3f2fd;
+  border: 1px solid #64b5f6;
+  color: #1565c0;
+  padding: 20px 30px;
+  margin: 40px auto;
+  width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(100, 181, 246, 0.3);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.loading-message-icon {
+  font-size: 1.8rem;
+  color: #1565c0;
+}

@@ -18,6 +18,7 @@ export class PostListComponent implements OnInit {
 
   //readOnly
   serverError=signal<string|null>(null)
+  isLoading=signal<boolean>(false)
 
   constructor(private postListService: PostListService) {
   }
@@ -29,14 +30,16 @@ export class PostListComponent implements OnInit {
   }
 
   loadPosts(): void {
+     this.isLoading.set(true);
     this.postListService.getAllPosts().subscribe({
       next: (posts) => {
         this.fetchedPosts = posts;
-
+        this.isLoading.set(false);
       },
       error: (err) => {
         this.serverError.set("There was an error fetching posts.");
         console.error(err);
+        this.isLoading.set(false);
       }
     });
   }
