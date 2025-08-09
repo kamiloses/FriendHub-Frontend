@@ -1,0 +1,167 @@
+.comment {
+  background-color: #1a1a1a;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 90%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.comment:hover {
+  background-color: #2a2a2a;
+}
+
+.user-data {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-data img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0;
+}
+
+.name {
+  font-weight: bold;
+  color: #ff9966;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.unique-name,
+.date {
+  color: #00ffea;
+  font-size: 0.9rem;
+  margin: 0 0 0 0.5rem;
+}
+
+.comment-text {
+  color: #ddd;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.comment-text p {
+  margin: 0 0 0.75rem 0;
+}
+
+.comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.respond-btn,
+.toggle-replies {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  text-decoration: underline;
+  color: #00ffea;
+}
+
+.respond-btn:hover,
+.toggle-replies:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.respond-btn.cancel {
+  color: #999;
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 1;
+}
+
+.toggle-replies {
+  color: #4da6ff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.75;
+}
+
+.toggle-replies span {
+  color: #7ea9cc;
+  font-weight: normal;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+form input[type="text"] {
+  flex: 1;
+  height: 2rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #00ffea;
+  border-radius: 1rem;
+  background-color: #121212;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+form button[type="submit"] {
+  padding: 0.4rem 1rem;
+  height: 2rem;
+  border: 1px solid #00ffea;
+  border-radius: 1rem;
+  background: transparent;
+  color: #00ffea;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #00ffea;
+  color: #121212;
+}
+
+.interactions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  color: #00ffea;
+}
+
+.interactions i {
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.children-comments {
+  margin-left: 1rem;
+  border-left: 1px solid #444;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}

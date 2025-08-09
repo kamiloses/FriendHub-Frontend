@@ -1,0 +1,46 @@
+<div class="comment">
+  <div class="user-data"><img src="facebook-icon.jpg" alt="image not loaded">
+    <p class="name">TO jest TEST</p>
+    <p class="unique-name">&#64;kamiloses</p>
+    <p class="date"> 20.04.2024</p>
+  </div>
+  <div class="comment-text">
+    <p>{{ comment.content }}</p>
+
+    <div class="comment-actions">
+      <button
+        (click)="showReplyInput = !showReplyInput"
+        class="respond-btn"
+        [ngClass]="{ 'cancel': showReplyInput }">
+        {{ showReplyInput ? 'Cancel' : 'Respond' }}
+      </button>
+
+      @if (comment.replies && comment.replies.length > 0) {
+        <button (click)="toggleExpand()" aria-label="Toggle replies" class="toggle-replies">
+          {{ isExpanded ? 'Hide replies' : 'Show replies' }}
+          <span>({{ comment.replies.length }})</span>
+        </button>
+      }
+
+      <div class="interactions">
+        <i class="fa fa-retweet">{{ comment.numberOfReplies }} 0</i>
+        <i class="fa fa-heart">{{ comment.numberOfLikes }} 0</i>
+      </div>
+    </div>
+
+    @if (showReplyInput) {
+      <form (ngSubmit)="sendReply(reply.value,comment.id)">
+        <input #reply type="text" placeholder="send reply... ">
+        <button type="submit">Send Reply</button>
+      </form>
+    }
+  </div>
+
+  @if (isExpanded && comment.replies && comment.replies.length > 0) {
+    <div class="children-comments" style="margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px;">
+      @for (child of comment.replies; track child) {
+        <app-comment [comment]="child" [currentRoute]="currentRoute"></app-comment>
+      }
+    </div>
+  }
+</div>

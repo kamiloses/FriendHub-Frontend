@@ -23,6 +23,7 @@ export class RegisterComponent {
   }
 
 
+
   public registerForm = new FormGroup({
     firstName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,20}$")]),
     lastName: new FormControl<string>('', [Validators.required, Validators.pattern("^[A-Za-z]{2,30}$")]),
@@ -52,6 +53,7 @@ export class RegisterComponent {
 
     this.registerService.signUp(registrationModel).subscribe({
       next: (response) => {
+         const count: number = 0;
         this.isLoading.set(false);
         this.registerForm.reset();
         console.info(response);
