@@ -1,4 +1,4 @@
-<div class="post-container" [routerLink]="['home/post/100']">
+<div class="post-container" [routerLink]="['home/post/'+post.id]">
   <div class="user-data">
     <p class="name">{{post.user.firstName + " " + post.user.lastName}}</p>
     <p class="unique-name">&#64;{{post.user.username}}</p>

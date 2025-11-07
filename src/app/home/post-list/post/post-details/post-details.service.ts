@@ -9,14 +9,14 @@ import {PostModelResponse} from '../post-response.model';
 })
 export class PostDetailsService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   private readonly apiUrl = 'http://localhost:8080/api/posts';
 
 
-     getPostById(id: number): Observable<PostModelResponse|null> {
+     getPostById(id: string): Observable<PostModelResponse|null> {
 
-    return this.http.get<PostModelResponse|null>(`${this.apiUrl}/6894712ae3f65640d161ead1`);
+    return this.http.get<PostModelResponse|null>(`${this.apiUrl}/${id}`);
   }
 
 }

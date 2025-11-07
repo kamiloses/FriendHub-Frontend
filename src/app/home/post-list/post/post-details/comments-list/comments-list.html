@@ -1,13 +1,12 @@
-<!--<div class="publish-comment">-->
+<div class="publish-comment">
 <!--  <form (ngSubmit)="sendComment(commentText.value)">-->
 <!--    <textarea #commentText placeholder="Publish a comment ..."></textarea>-->
-<!--    &lt;!&ndash;    todo INput chyba&ndash;&gt;-->
 <!--    <button type="submit">Publish</button>-->
 <!--  </form>-->
-<!--</div>-->
+</div>
 
-<!--<div class="comments-list">-->
-<!--  @for (comment of comments;track comment) {-->
-<!--    <app-comment [comment]="comment" [currentRoute]="currentRoute"></app-comment>-->
-<!--  }-->
-<!--</div>-->
+<div class="comments-list">
+  @for (comment of comments;track comment) {
+    <app-comment [comment]="comment" [currentRoute]="currentRoute"></app-comment>
+  }
+</div>

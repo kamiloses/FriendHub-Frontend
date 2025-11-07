@@ -1,15 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, signal} from '@angular/core';
 import {Comment} from './comment/comment';
 import {Subscription} from 'rxjs';
+import {CommentResponseModel} from './comment/comment-response.model';
+import {CommentsListService} from './comments-list.service';
 
-interface PublishCommentModel {
-}
 
-interface CommentModel {
-}
-
-class CommentListService {
-}
 
 @Component({
   selector: 'app-comments-list',
@@ -20,35 +15,44 @@ class CommentListService {
 })
 export class CommentsList  {
 
-  // constructor(private commentListService: CommentListService) {
-  // }
-  //
-  //
-  //
-  //
-  // comments: CommentModel[] = [];
-  // private subscription: Subscription | null = null;
-  //
-  // @Input({required: true}) currentRoute!: string;
-  //
-  //
-  // ngOnInit(): void {
-  //   this.commentListService.findCommentsRelatedWithPost(this.currentRoute).subscribe({
-  //     next:(data)=>{
-  //       this.comments=data
-  //     }})
-  //
-  // }
-  //
-  //
-  // ngOnDestroy(): void {
-  //
-  //   if (this.subscription) {
-  //     this.subscription.unsubscribe();
-  //   }
-  // }
-  //
-  //
+  constructor(private readonly commentListService: CommentsListService) {
+  }
+
+  protected fetchComments = signal<CommentResponseModel[]>([]);
+  protected isLoading = signal<boolean>(false);
+  protected serverError = signal<string | null>(null);
+
+
+  private subscription: Subscription | null = null;
+
+  @Input({required: true}) currentRoute!: string;
+
+
+  ngOnInit(): void {
+  this.loadComments()
+
+  }
+
+
+
+
+  loadComments(){
+
+    this.isLoading.set(true)
+    this.subscription=this.commentListService.findCommentsRelatedWithPost(this.currentRoute).subscribe({
+      next:(comments:CommentResponseModel[])=>{
+        this.isLoading.set(false)
+        this.fetchComments.set(comments);
+      },
+      error:(err)=>{
+        this.isLoading.set(false)
+        this.serverError.set("TODO");
+        console.error(err);
+      }});
+
+
+  }
+
   // sendComment(content: string) {
   //   const commentModel: PublishCommentModel = {
   //     postId: this.currentRoute,
@@ -61,4 +65,13 @@ export class CommentsList  {
   //   window.location.reload();
   //
   // }
+
+
+
+  ngOnDestroy(): void {
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }
