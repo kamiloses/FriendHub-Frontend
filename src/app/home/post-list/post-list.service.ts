@@ -10,12 +10,12 @@ export class PostListService {
 
   private readonly apiUrl = 'http://localhost:8080/api/posts';
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
 
   getAllPosts(): Observable<PostModelResponse[]> {
-    const username = "kamiloses123";
+    const username = "kamilosesx";
     return this.http.get<PostModelResponse[]>(
       `${this.apiUrl}?username=${username}`
     );
@@ -27,16 +27,6 @@ export class PostListService {
     return this.http.post("http://localhost:8080/api/posts/kamiloses1", body);
   }
 
-  // getPostsRelatedWithUser():Observable<PostModelResponse[]|null>{
-  //   const username = "kamiloses1"
-  //   return this.http
-  //     .get<PostModelResponse[]>(`http://localhost:8080/api/posts?username=${username}`)
-  //     .pipe(
-  //       catchError(err => {
-  //         console.error('Post Module  error:', err);
-  //         return of(null);
-  //       }))
-  //
-  // }
+
 
 }

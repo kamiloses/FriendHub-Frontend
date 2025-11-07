@@ -10,8 +10,8 @@ import {RouterLink} from '@angular/router';
     DatePipe,
     RouterLink
   ],
-  templateUrl: './post.html',
-  styleUrl: './post.css'
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.css'
 })
 export class Post {
   @Input() post!: PostModelResponse;

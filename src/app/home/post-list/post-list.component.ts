@@ -1,9 +1,10 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {PostModelResponse} from './post/post-response.model';
 import {User} from './user.model';
 import {FormsModule} from '@angular/forms';
 import {Post} from './post/post';
 import {PostListService} from './post-list.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
@@ -14,15 +15,16 @@ import {PostListService} from './post-list.service';
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
 
-  serverError=signal<string|null>(null)
-  isLoading=signal<boolean>(false)
+  protected serverError=signal<string|null>(null)
+  protected isLoading=signal<boolean>(false)
+  protected fetchedPosts=signal<PostModelResponse[]>([])
+  private subscription?:Subscription;
 
   constructor(private postListService: PostListService) {
   }
 
-   fetchedPosts=signal<PostModelResponse[]>([])
 
 
    ngOnInit(): void {
@@ -31,7 +33,7 @@ export class PostListComponent implements OnInit {
 
   loadPosts(): void {
      this.isLoading.set(true);
-    this.postListService.getAllPosts().subscribe({
+   this.subscription= this.postListService.getAllPosts().subscribe({
       next: (posts) => {
         this.fetchedPosts.set(posts);
         this.isLoading.set(false);
@@ -47,6 +49,13 @@ export class PostListComponent implements OnInit {
   reloadPosts(): void {
     this.loadPosts();
   }
+
+  ngOnDestroy(): void {
+this.subscription?.unsubscribe();
+  }
+
+
+
 }
 
 
