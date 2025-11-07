@@ -1,14 +1,19 @@
 <div class="post-list-container">
-  <div class="publish-post">
-    <!--    <img src="facebook-icon.jpg" alt="image not loaded">-->
-    <textarea placeholder="What's on your mind ?"></textarea>
-  </div>
-
+  <form (ngSubmit)="publishPost()">
+    <div class="publish-post">
+      <!-- <img src="facebook-icon.jpg" alt="image not loaded"> -->
+      <textarea [(ngModel)]="text" name="text" placeholder="What's on your mind ?"></textarea>
+    </div>
+    <button type="submit" [disabled]="!text?.trim() || isPosting()">
+      {{ isPosting() ? 'Publishing...' : 'Publish Post' }}
+    </button>
+  </form>
 
   @if (isLoading()) {
     <div class="loading-message">
       ⏳ Loading posts...
-    </div>}
+    </div>
+  }
   @else if (serverError()) {
     <div class="error-message">
       <span class="error-message-icon">⚠️</span>
@@ -20,8 +25,5 @@
     @for (post of fetchedPosts(); track post.id) {
       <app-post [post]="post"></app-post>
     }
-
   }
-
-
 </div>

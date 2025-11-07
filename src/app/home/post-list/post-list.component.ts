@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {PostModelResponse} from './post/post-response.model';
-import {User} from './user.model';
 import {FormsModule} from '@angular/forms';
 import {Post} from './post/post';
 import {PostListService} from './post-list.service';
@@ -20,7 +19,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   protected serverError=signal<string|null>(null)
   protected isLoading=signal<boolean>(false)
   protected fetchedPosts=signal<PostModelResponse[]>([])
+  protected isPosting = signal<boolean>(false);
+  protected text!:string;
   private subscription?:Subscription;
+
 
   constructor(private postListService: PostListService) {
   }
@@ -45,6 +47,26 @@ export class PostListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
+
+  publishPost(){
+    this.isPosting.set(true);
+    this.postListService.sendPost(this.text).subscribe({
+      next: () => {
+        this.text = '';
+        this.loadPosts();
+        this.isPosting.set(false);
+      },
+      error: (err) => {
+        console.error(err);
+        this.isPosting.set(false);
+      }
+    });
+
+  }
+
+
 
   reloadPosts(): void {
     this.loadPosts();
