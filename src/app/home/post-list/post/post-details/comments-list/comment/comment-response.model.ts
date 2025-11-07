@@ -10,5 +10,5 @@ export interface CommentResponseModel {
   numberOfComments: number;
   numberOfLikes: number;
   numberOfReplies: number;
-
+  replies?: CommentResponseModel[];
 }

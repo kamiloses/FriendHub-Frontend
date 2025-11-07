@@ -6,7 +6,7 @@
 </div>
 
 <div class="comments-list">
-  @for (comment of comments;track comment) {
-    <app-comment [comment]="comment" [currentRoute]="currentRoute"></app-comment>
+  @for (comment of fetchComments();track comment.id) {
+    <app-comment [comment]="comment" [currentRoute]="'6909bb2dbb15954e40d9ccd5'"></app-comment>
   }
 </div>

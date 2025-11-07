@@ -9,6 +9,7 @@ import {CommentsListService} from './comments-list.service';
 @Component({
   selector: 'app-comments-list',
   imports: [
+    Comment
   ],
   templateUrl: './comments-list.html',
   styleUrl: './comments-list.css'
@@ -30,6 +31,7 @@ export class CommentsList  {
 
   ngOnInit(): void {
   this.loadComments()
+    console.log(this.fetchComments);
 
   }
 

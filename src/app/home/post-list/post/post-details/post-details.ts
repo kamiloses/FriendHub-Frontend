@@ -3,11 +3,13 @@ import {FormsModule} from '@angular/forms';
 import {PostModelResponse} from '../post-response.model';
 import {PostDetailsService} from './post-details.service';
 import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import {CommentsList} from './comments-list/comments-list';
 
 @Component({
   selector: 'app-post-details',
   imports: [
-    FormsModule
+    FormsModule,
+    CommentsList
   ],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
