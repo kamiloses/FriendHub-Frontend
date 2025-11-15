@@ -13,12 +13,4 @@ export class CommentsListService {
 
   findCommentsRelatedWithPost(postId:string):Observable<CommentResponseModel[]>{
 
-    return this.http.get<CommentResponseModel[]>("http://localhost:8083/api/comments/"+postId)}
-
-
-
-  sendComment(username:string,commentModel: CommentResponseModel) {
-    return  this.http.post<void[]>("http://localhost:8083/api/comments?username="+username, commentModel);
-  }
-
-}
+    return this.http.get<CommentResponseModel[]>("http://localhost:8083/api/comments/"+postId)}}

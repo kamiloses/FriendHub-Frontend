@@ -55,18 +55,6 @@ export class CommentsList  {
 
   }
 
-  // sendComment(content: string) {
-  //   const commentModel: PublishCommentModel = {
-  //     postId: this.currentRoute,
-  //     parentCommentId: null,//todo to
-  //     content: content
-  //   };
-  //
-  //   this.commentListService.sendComment("kamiloses1",commentModel).subscribe()
-  //
-  //   window.location.reload();
-  //
-  // }
 
 
 

@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommentResponseModel} from './comment-response.model';
 import {FormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
+import {window} from 'rxjs';
+import {CommentService} from './comment.service';
+import {PublishCommentModel} from './publishCommentModel';
 
 @Component({
   selector: 'app-comment',
@@ -17,6 +20,10 @@ export class Comment implements OnInit {
   @Input({ required: true }) currentRoute!: string;
   showReplyInput = false; // lokalna zmienna do kontrolowania pola reply
   isExpanded = false;
+
+
+  constructor(private readonly commentService: CommentService,) {
+  }
 
   ngOnInit(): void {
        console.log("ccc"+this.currentRoute);
@@ -37,7 +44,21 @@ export class Comment implements OnInit {
 
   sendReply(content: string, parentId: string) {
     console.log('Sending reply to', parentId, 'with content:', content);
-    // logika wysyłki odpowiedzi do backendu
+
+  }
+
+  sendComment(content: string) {
+    console.warn("WYKONUJEEE")
+    const commentModel: PublishCommentModel = {
+      postId: this.currentRoute,
+      parentCommentId: this.comment.id??null,
+      content: content
+    };
+
+    this.commentService.sendComment("kamiloses1",commentModel).subscribe()
+
+    // window.location.reload();
+
   }
 
 }
