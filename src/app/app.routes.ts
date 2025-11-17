@@ -18,7 +18,7 @@ export const routes: Routes = [
   {
     path: 'home', component: HomeLayout, children: [
       { path: '', component: PostListComponent },
-      { path: 'home/post/:id', component: PostDetails },
+      { path: 'post/:id', component: PostDetails },
     ]
   }
 

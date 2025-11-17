@@ -3,31 +3,29 @@
     <span class="loading-message-icon">⏳</span>
     Loading posts...
   </div>
-}
-@else if (serverError()) {
+} @else if (serverError()) {
   <div class="error-message">
     <span class="error-message-icon">⚠️</span>
     {{ serverError() }}
     <button (click)="reloadPosts()">Try Again ...</button>
   </div>
 } @else {
-
-
-<div  class="post-container">
-  <div class="user-data"><img src="facebook-icon.jpg" alt="image not loaded">
-    <p class="name">{{post()!.user.firstName +' '+post()!.user.lastName}}</p>
-    <p class="unique-name">&#64;{{post()!.user.username}}</p>
-    <p class="date"> 20.04.2024</p>
-  </div>
-  <div class="post-text">
-    {{post()!.content}}
-    <div class="interactions">
-      <i class="fa fa-comment"></i>
-      <i class="fa fa-heart"></i>
+  <div class="post-container">
+    <div class="user-data">
+      <img src="facebook-icon.jpg" alt="image not loaded">
+      <p class="name">{{post()!.user.firstName + ' ' + post()!.user.lastName}}</p>
+      <p class="unique-name">&#64;{{post()!.user.username}}</p>
+      <p class="date">20.04.2024</p>
+    </div>
+    <div class="post-text">
+      {{post()!.content}}
+      <div class="interactions">
+        <i class="fa fa-comment"></i>
+        <i class="fa fa-heart"></i>
+      </div>
     </div>
   </div>
-  </div>
-}
+
   <div class="publish-comment">
     <img src="facebook-icon.jpg" alt="image not loaded">
     <textarea placeholder="Publish a comment ..." [(ngModel)]="text"></textarea>
@@ -36,6 +34,8 @@
     <button (click)="onPublish()">Publish</button>
   </div>
 
-<app-comments-list [currentRoute]="'6909bb2dbb15954e40d9ccd5'"></app-comments-list>
-
-
+  <app-comments-list
+    [currentRoute]="postId"
+    (commentPublished)="reloadPosts()">
+  </app-comments-list>
+}

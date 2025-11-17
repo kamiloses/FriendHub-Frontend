@@ -1,9 +1,11 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {PostModelResponse} from '../post-response.model';
-import {PostDetailsService} from './post-details.service';
-import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
-import {CommentsList} from './comments-list/comments-list';
+import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PostModelResponse } from '../post-response.model';
+import { PostDetailsService } from './post-details.service';
+import { CommentsList } from './comments-list/comments-list';
+import { PublishCommentModel } from './comments-list/comment/publishCommentModel';
+import { CommentService } from './comments-list/comment/comment.service';
 
 @Component({
   selector: 'app-post-details',
@@ -15,51 +17,58 @@ import {CommentsList} from './comments-list/comments-list';
   styleUrl: './post-details.component.css'
 })
 export class PostDetails implements OnInit {
-  text: string="";
+  text: string = "";
+  postId!: string;
 
+  protected post = signal<PostModelResponse | null>(null);
+  protected serverError = signal<string | null>(null);
+  protected isLoading = signal<boolean>(false);
 
-
-  protected post = signal<PostModelResponse | null>(null)
-  protected serverError = signal<string | null>(null)
-  protected isLoading = signal<boolean>(false)
-  private postId!:string;
-
-  constructor(private readonly postDetailsService: PostDetailsService,private readonly route: ActivatedRoute) {
-  }
+  constructor(
+    private readonly postDetailsService: PostDetailsService,
+    private readonly route: ActivatedRoute,
+    private readonly commentService: CommentService
+  ) {}
 
   ngOnInit(): void {
-     this.postId = this.route.snapshot.paramMap.get('id')!;
+    this.postId = this.route.snapshot.paramMap.get('id')!;
     this.loadPost(this.postId);
-
   }
 
-  loadPost(postId:string): void {
+  loadPost(postId: string): void {
     this.isLoading.set(true);
     this.postDetailsService.getPostById(postId).subscribe({
-        next: fetchedPost => {
-          this.post.set(fetchedPost)
-          this.isLoading.set(false);
-          console.log("aa"+fetchedPost)
-
-        }
-        , error: err => {
-          console.error(err);
-          this.serverError.set("There was an error fetching post.");
-          this.isLoading.set(false);
-        }
+      next: fetchedPost => {
+        this.post.set(fetchedPost);
+        this.isLoading.set(false);
+      },
+      error: err => {
+        console.error(err);
+        this.serverError.set("There was an error fetching post.");
+        this.isLoading.set(false);
       }
-    )
-
+    });
   }
-
 
   reloadPosts(): void {
     this.loadPost(this.postId);
   }
 
-
-
   onPublish() {
+    if (!this.text || this.text.trim() === '') return;
 
+    const commentModel: PublishCommentModel = {
+      postId: this.postId,
+      parentCommentId: null, // komentarz główny
+      content: this.text.trim()
+    };
+
+    this.commentService.sendComment("kamilosesx", commentModel).subscribe({
+      next: () => {
+        this.text = '';
+        this.reloadPosts(); // odświeżamy komentarze
+      },
+      error: err => console.error(err)
+    });
   }
 }

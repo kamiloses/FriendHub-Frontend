@@ -1,12 +1,9 @@
-<div class="publish-comment">
-<!--  <form (ngSubmit)="sendComment(commentText.value)">-->
-<!--    <textarea #commentText placeholder="Publish a comment ..."></textarea>-->
-<!--    <button type="submit">Publish</button>-->
-<!--  </form>-->
-</div>
-
 <div class="comments-list">
-  @for (comment of fetchComments();track comment.id) {
-    <app-comment [comment]="comment" [currentRoute]="'6909bb2dbb15954e40d9ccd5'"></app-comment>
+  @for (comment of fetchComments(); track comment.id) {
+    <app-comment
+      [comment]="comment"
+      [currentRoute]="currentRoute"
+      (commentPublished)="onChildCommentPublished()">
+    </app-comment>
   }
 </div>
