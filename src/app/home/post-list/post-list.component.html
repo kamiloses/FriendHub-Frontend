@@ -1,13 +1,11 @@
 <div class="post-list-container">
-  <form (ngSubmit)="publishPost()">
-    <div class="publish-post">
-      <!-- <img src="facebook-icon.jpg" alt="image not loaded"> -->
-      <textarea [(ngModel)]="text" name="text" placeholder="What's on your mind ?"></textarea>
-    </div>
+  <form class="publish-post-form" (ngSubmit)="publishPost()">
+    <textarea [(ngModel)]="text" name="text" placeholder="What's on your mind ?"></textarea>
     <button type="submit" [disabled]="!text?.trim() || isPosting()">
       {{ isPosting() ? 'Publishing...' : 'Publish Post' }}
     </button>
   </form>
+
 
   @if (isLoading()) {
     <div class="loading-message">

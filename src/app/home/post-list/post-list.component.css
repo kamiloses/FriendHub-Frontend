@@ -5,69 +5,73 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 40px;
-  width: calc(100% - 390px - 30vw); /* mniej szerokości sidebarów */
-  margin-left: 390px; /* pozycja obok lewego sidebar */
-  margin-right: 30vw; /* pozycja obok prawego sidebar */
+  width: calc(100% - 390px - 30vw);
+  margin-left: 390px;
+  margin-right: 30vw;
 }
 
-.publish-post {
+form.publish-post-form {
   display: flex;
-  background-color: #f5f5f5;
-  border-bottom: 2px solid #ff7043;
+  align-items: flex-start;
+  gap: 10px;
   width: 600px;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(255, 112, 67, 0.3);
   margin-bottom: 30px;
 }
 
-.publish-post textarea {
-  flex-grow: 1;
-  height: 70px;
+.publish-post-form textarea {
+  flex: 1;
+  min-height: 70px;
+  max-height: 150px;
   padding: 12px 16px;
-  background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  color: #333;
+  border-radius: 12px;
   font-size: 1rem;
-  resize: none;
-  transition: border-color 0.3s ease;
+  font-family: Arial, sans-serif;
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.publish-post textarea:focus {
+.publish-post-form textarea:focus {
   outline: none;
   border-color: #3f51b5;
-  box-shadow: 0 0 5px #3f51b5;
+  box-shadow: 0 0 6px rgba(63, 81, 181, 0.3);
 }
 
-.publish-post button {
-  background-color: #ff7043;
-  color: white;
+.publish-post-form button {
+  flex-shrink: 0;
+  background-color: #3f51b5;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 16px;
   font-weight: 600;
-  margin-left: 15px;
-  transition: background-color 0.3s ease;
-  align-self: center;
+  font-size: 1rem;
   height: 44px;
+  align-self: flex-end;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.publish-post button:hover {
-  background-color: #f4511e;
+.publish-post-form button:disabled {
+  background-color: #9fa8da;
+  cursor: not-allowed;
+}
+
+.publish-post-form button:hover:not(:disabled) {
+  background-color: #2c3e9e;
+  transform: translateY(-1px);
 }
 
 img {
   margin-top: 15px;
-  margin-left: 15px;
+  margin-left: 0;
   height: 50px;
   width: 50px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e0e0e0;
 }
+
 .error-message {
   background-color: #ffe6e1;
   border: 1px solid #ff7043;
@@ -90,6 +94,7 @@ img {
   font-size: 1.8rem;
   color: #d84315;
 }
+
 .error-message button {
   background-color: #ff7043;
   color: white;
@@ -105,6 +110,7 @@ img {
 .error-message button:hover {
   background-color: #f4511e;
 }
+
 .loading-message {
   background-color: #e3f2fd;
   border: 1px solid #64b5f6;
