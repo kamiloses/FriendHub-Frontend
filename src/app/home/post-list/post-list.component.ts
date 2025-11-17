@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {PostModelResponse} from './post/post-response.model';
 import {FormsModule} from '@angular/forms';
-import {Post} from './post/post';
+import {PostComponent} from './post/post.component';
 import {PostListService} from './post-list.service';
 import {Subscription} from 'rxjs';
 
@@ -9,33 +9,32 @@ import {Subscription} from 'rxjs';
   selector: 'app-post-list',
   imports: [
     FormsModule,
-    Post
+    PostComponent
   ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
-  protected serverError=signal<string|null>(null)
-  protected isLoading=signal<boolean>(false)
-  protected fetchedPosts=signal<PostModelResponse[]>([])
-  protected isPosting = signal<boolean>(false);
-  protected text!:string;
-  private subscription?:Subscription;
+  serverError = signal<string | null>(null)
+  isLoading = signal<boolean>(false)
+  fetchedPosts = signal<PostModelResponse[]>([])
+  isPosting = signal<boolean>(false);
+  text!: string;
+  subscription?: Subscription;
 
 
   constructor(private readonly postListService: PostListService) {
   }
 
 
-
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.loadPosts();
   }
 
   loadPosts(): void {
-     this.isLoading.set(true);
-   this.subscription= this.postListService.getAllPosts().subscribe({
+    this.isLoading.set(true);
+    this.subscription = this.postListService.getAllPosts().subscribe({
       next: (posts) => {
         this.fetchedPosts.set(posts);
         this.isLoading.set(false);
@@ -49,8 +48,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
 
-
-  publishPost(){
+  publishPost() {
     this.isPosting.set(true);
     this.postListService.sendPost(this.text).subscribe({
       next: () => {
@@ -67,15 +65,13 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
 
-
   reloadPosts(): void {
     this.loadPosts();
   }
 
   ngOnDestroy(): void {
-this.subscription?.unsubscribe();
+    this.subscription?.unsubscribe();
   }
-
 
 
 }

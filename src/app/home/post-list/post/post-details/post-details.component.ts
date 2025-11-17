@@ -16,13 +16,13 @@ import { CommentService } from './comments-list/comment/comment.service';
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
 })
-export class PostDetails implements OnInit {
+export class PostDetailsComponent implements OnInit {
   text: string = "";
   postId!: string;
 
-  protected post = signal<PostModelResponse | null>(null);
-  protected serverError = signal<string | null>(null);
-  protected isLoading = signal<boolean>(false);
+   post = signal<PostModelResponse | null>(null);
+  serverError = signal<string | null>(null);
+  isLoading = signal<boolean>(false);
 
   constructor(
     private readonly postDetailsService: PostDetailsService,
@@ -59,14 +59,14 @@ export class PostDetails implements OnInit {
 
     const commentModel: PublishCommentModel = {
       postId: this.postId,
-      parentCommentId: null, // komentarz główny
+      parentCommentId: null,
       content: this.text.trim()
     };
-
+    //todo static
     this.commentService.sendComment("kamilosesx", commentModel).subscribe({
       next: () => {
         this.text = '';
-        this.reloadPosts(); // odświeżamy komentarze
+        this.reloadPosts();
       },
       error: err => console.error(err)
     });

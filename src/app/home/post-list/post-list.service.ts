@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {catchError, Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PostModelResponse} from './post/post-response.model';
 import {HttpClient} from '@angular/common/http';
 
@@ -13,7 +13,7 @@ export class PostListService {
   constructor(private readonly http: HttpClient) {
   }
 
-
+//todo popraw te dane statyczne
   getAllPosts(): Observable<PostModelResponse[]> {
     const username = "kamilosesx";
     return this.http.get<PostModelResponse[]>(
