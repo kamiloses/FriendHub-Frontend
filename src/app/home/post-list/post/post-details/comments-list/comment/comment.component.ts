@@ -8,10 +8,10 @@ import { PublishCommentModel } from './publishCommentModel';
 @Component({
   selector: 'app-comment',
   imports: [FormsModule, NgClass],
-  templateUrl: './comment.html',
-  styleUrl: './comment.css'
+  templateUrl: './comment.component.html',
+  styleUrl: './comment.component.css'
 })
-export class Comment implements OnInit {
+export class CommentComponent implements OnInit {
   @Input({ required: true }) comment!: CommentResponseModel;
   @Input({ required: true }) currentRoute!: string;
   @Output() commentPublished = new EventEmitter<void>();
@@ -32,7 +32,6 @@ export class Comment implements OnInit {
   }
 
   sendReply(content: string, parentId: string) {
-    // tutaj wysyłasz reply i emitujesz event
     const commentModel: PublishCommentModel = {
       postId: this.currentRoute,
       parentCommentId: parentId,

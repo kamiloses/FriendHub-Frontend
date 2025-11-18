@@ -2,11 +2,11 @@ import { Component, Input, OnInit, Output, EventEmitter, signal } from '@angular
 import { CommentResponseModel } from './comment/comment-response.model';
 import { CommentsListService } from './comments-list.service';
 import { Subscription } from 'rxjs';
-import { Comment } from './comment/comment';
+import {CommentComponent} from './comment/comment.component';
 
 @Component({
   selector: 'app-comments-list',
-  imports: [Comment],
+  imports: [CommentComponent],
   templateUrl: './comments-list.component.html',
   styleUrl: './comments-list.component.css'
 })
