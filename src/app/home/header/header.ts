@@ -1,37 +1,23 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [
-    FormsModule
-  ],
+  standalone: true,
+  imports: [FormsModule, RouterModule],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']
 })
 export class Header {
-//todo cały komponent nazwy
-  currentRoute!: string;
-  searchedUser!:string
+  searchedUser: string = '';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.router.events.subscribe(() => {
-      this.updateHeader();
-    });
-  }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.updateHeader();
-  }
-
-  updateHeader() {
-    this.currentRoute = this.router.url;
-  }
-
-  onSearch(){
-    this.router.navigate(['/search/'+this.searchedUser])
-
-
+  onSearch() {
+    const username = this.searchedUser.trim();
+    if (username) {
+      this.router.navigate(['/home/search', username]);
+    }
   }
 }

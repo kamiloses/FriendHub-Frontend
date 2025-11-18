@@ -1,100 +1,50 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SearchedPeople} from './searched-people.model';
-import {WebSocketService} from '../websocket.service';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
+export interface SearchedPeople {
+  id: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+  isYourFriend: boolean;
+}
 
 @Component({
   selector: 'app-search-friends',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, HttpClientModule, RouterModule, FormsModule],
   templateUrl: './search-friends.component.html',
   styleUrls: ['./search-friends.component.css']
 })
 export class SearchFriendsComponent implements OnInit {
+  searchedUsername!: string;
+  searchedPeopleData: SearchedPeople[] = [];
+  username: string | null = null;
 
+  constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {}
 
-  constructor(private httpClient: HttpClient, private router: Router, private activatedRoute: ActivatedRoute
-    ,private websocketService:WebSocketService
-  ) {
-  }
-
-  private searchedUsername!: string
-  private currentRoute!: string
-  protected searchedPeopleData!:SearchedPeople[]
-  protected username: string |null = null
   ngOnInit(): void {
-    this.username=sessionStorage.getItem('username');
-    console.log("username "+this.username)
-    this.currentRoute = this.router.url;
-
-    const lastSlashIndex = this.currentRoute.lastIndexOf('/');
-    this.searchedUsername = this.currentRoute.substring(lastSlashIndex + 1);
-
-    console.log("Searched Username: " + this.searchedUsername)
-    this.fetchUsers()
+    this.username = sessionStorage.getItem('username');
+    this.searchedUsername = this.activatedRoute.snapshot.paramMap.get('username') || '';
+    this.fetchUsers();
   }
 
   fetchUsers() {
-
-    const headers = new HttpHeaders({
-      'myUsername': this.username ?? '',
-    });
-
-
-    this.httpClient.get<SearchedPeople[]>(`http://localhost:8084/api/friends/`+this.searchedUsername,{headers}).subscribe({
-      next: (posts) => {
-        this.searchedPeopleData = posts;
-      },
-
-    });
+    const headers = new HttpHeaders({ 'myUsername': 'kamiloses123' });//todo
+    this.httpClient.get<SearchedPeople[]>(`http://localhost:8084/api/friends/${this.searchedUsername}`, { headers })
+      .subscribe(posts => this.searchedPeopleData = posts);
   }
 
-
-
-
-  onClickUserFriend(friendUsername: string): void {
-
-
-
-    const headers = {
-      friendUsername: friendUsername,
-      myUsername: this.username ?? '',
-
-    };
-
-    this.httpClient.delete<void>('http://localhost:8084/api/friends', {headers})
-      .subscribe();
-    window.location.reload();
-    this.websocketService.sendFriendInvitationNotification()
-
+  onClickUserFriend(friendUsername: string) {
+    const headers = { friendUsername, myUsername: this.username ?? '' };
+    this.httpClient.delete<void>('http://localhost:8084/api/friends', { headers }).subscribe(() => this.fetchUsers());
   }
 
-
-
-
-  onClickUserNotFriend(friendUsername: string): void {
-
-
-
-    const headers = {
-      friendUsername: friendUsername,
-      myUsername: this.username ?? '',
-
-    };
-
-    this.httpClient.post<void>('http://localhost:8084/api/friends',null, {headers})
-      .subscribe();
-    window.location.reload();
-
-    this.websocketService.sendFriendInvitationNotification()
-
-
+  onClickUserNotFriend(friendUsername: string) {
+    const headers = { friendUsername, myUsername: this.username ?? '' };
+    this.httpClient.post<void>('http://localhost:8084/api/friends', null, { headers }).subscribe(() => this.fetchUsers());
   }
-
-
-
-
-
 }
