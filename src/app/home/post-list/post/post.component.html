@@ -1,21 +1,33 @@
-<div class="post-container" [routerLink]="['/home/post', post.id]">">
+<div [routerLink]="['/user', post.user.username, 'post', post.id]" class="post-container">
   <div class="user-data">
-    <p class="name">{{post.user.firstName + " " + post.user.lastName}}</p>
-    <p class="unique-name">&#64;{{post.user.username}}</p>
-    <p class="date">{{ post.createdAt | date:'dd MMMM yyyy, HH:mm' }}</p>
+    <img src="facebook-icon.jpg" alt="image not loaded">
+    <p class="name">{{ post.user.firstName + ' ' + post.user.lastName }}</p>
+    <p class="unique-name">&#64;{{ post.user.username }}</p>
+    <p class="date">{{ post.createdAt | date: 'yyyy-MM-dd' }}</p>
   </div>
 
   <div class="post-text">
-    {{post.content}}
+    {{ post.content }}
 
     <div class="interactions">
-      <i [ngClass]="post.retweetedByMe ? 'retweeted': 'not-retweeted'"
-         class="fa fa-retweet"></i>
-      <span>{{post.retweetCount}}</span>
+      <i class="fa fa-comment">0</i>
 
-      <i [ngClass]="post.likedByMe ? 'liked': 'not-liked'"
-         class="fa fa-heart"></i>
-      <span>{{post.likeCount}}</span>
+      @if (post.retweetedByMe) {
+        <i class="fa fa-retweet retweeted" (click)="undoRetweet($event)"></i>
+        <span>{{ post.retweetCount }}</span>
+      } @else {
+        <i class="fa fa-retweet" (click)="retweet($event)"></i>
+        <span>{{ post.retweetCount }}</span>
+      }
+
+      @if (post.likedByMe) {
+        <i class="fa fa-heart liked" (click)="unlikeThePost($event)"></i>
+        <span>{{ post.likeCount }}</span>
+      } @else {
+        <i class="fa fa-heart" (click)="likeThePost($event)"></i>
+        <span>{{ post.likeCount }}</span>
+      }
+
     </div>
   </div>
 </div>
