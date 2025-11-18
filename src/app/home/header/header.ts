@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,16 +11,27 @@ import {Router} from '@angular/router';
   styleUrl: './header.css'
 })
 export class Header {
+//todo cały komponent nazwy
+  currentRoute!: string;
+  searchedUser!:string
 
-
-
-  constructor(private router: Router) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.router.events.subscribe(() => {
+      this.updateHeader();
+    });
   }
 
-  searchedUser!: string
+  ngOnInit(): void {
+    this.updateHeader();
+  }
+
+  updateHeader() {
+    this.currentRoute = this.router.url;
+  }
+
+  onSearch(){
+    this.router.navigate(['/search/'+this.searchedUser])
 
 
-  searchUsers() {
-    this.router.navigate(['/search'], { queryParams: { username: 'dsadadsaddsadsa' } });
   }
 }

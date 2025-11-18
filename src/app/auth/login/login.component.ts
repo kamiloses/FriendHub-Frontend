@@ -49,8 +49,8 @@ export class LoginComponent {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     };
-
-    this.loginService.login(login).pipe(take(1)).subscribe({ //todo ogarnij take 1
+//todo cały komponent
+    this.loginService.login(login).pipe(take(1)).subscribe({
       next: (response: LoginResponseModel) => {
         this.isLoading.set(false);
 

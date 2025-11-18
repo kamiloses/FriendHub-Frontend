@@ -1,14 +1,21 @@
-<header >
+<header>
+  <div class="header-left">
+  </div>
   <div class="header-center">
-    <span  class="friendhub">FriendHub</span>
+    <span class="friendhub">FriendHub</span>
+
+
   </div>
   <div class="header-right">
-
     <div class="search-container">
-      <form (ngSubmit)="searchUsers()">
-        <input type="text" placeholder="Search..." [(ngModel)]="searchedUser" name="searchedUser" required />
-        <button type="submit">Search</button>
-      </form>
+      <input type="text" placeholder="Search...  (by username)" [(ngModel)]="searchedUser">
+      <button (click)="onSearch()" class="search-button">
+        <i class="fa fa-search"></i>
+
+      </button>
+
+
     </div>
   </div>
+
 </header>

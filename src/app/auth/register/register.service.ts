@@ -14,7 +14,7 @@ export class RegisterService {
 
 
   signUp(registrationModel: RegisterRequestModel):Observable<RegisterResponseModel> {
-    return this.http.post<RegisterResponseModel>(this.apiUrl, registrationModel) //todo sprawdz to {message:string}
+    return this.http.post<RegisterResponseModel>(this.apiUrl, registrationModel)
 
   }
 
