@@ -1,0 +1,26 @@
+<div class="comments-list">
+
+  @if (isLoading()) {
+    <div class="loading-message">
+      <span class="loading-message-icon">⏳</span>
+      Loading comments...
+    </div>
+  }
+  @else if (serverError()) {
+    <div class="error-message">
+      <span class="error-message-icon">⚠️</span>
+      {{ serverError() }}
+      <button (click)="loadComments()">Try Again ...</button>
+    </div>
+  }
+  @else {
+    @for (comment of fetchComments(); track comment.id) {
+      <app-comment
+        [comment]="comment"
+        [currentRoute]="currentRoute"
+        (commentPublished)="onChildCommentPublished()">
+      </app-comment>
+    }
+  }
+
+</div>

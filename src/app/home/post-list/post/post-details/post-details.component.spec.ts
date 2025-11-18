@@ -4,7 +4,7 @@ import { PostDetailsService } from './post-details.service';
 import { CommentService } from './comments-list/comment/comment.service';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { CommentsList } from './comments-list/comments-list';
+import {CommentsListComponent} from './comments-list/comments-list.component';
 import { PostModelResponse } from '../post-response.model';
 
 describe('PostDetailsComponent', () => {
@@ -18,7 +18,7 @@ describe('PostDetailsComponent', () => {
     const commentSpy = jasmine.createSpyObj('CommentService', ['sendComment']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule, CommentsList],
+      imports: [FormsModule, CommentsListComponent],
       declarations: [PostDetailsComponent],
       providers: [
         { provide: PostDetailsService, useValue: postSpy },

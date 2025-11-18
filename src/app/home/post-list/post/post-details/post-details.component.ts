@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PostModelResponse } from '../post-response.model';
 import { PostDetailsService } from './post-details.service';
-import { CommentsList } from './comments-list/comments-list';
+import { CommentsList } from './comments-list/comments-list.component';
 import { PublishCommentModel } from './comments-list/comment/publishCommentModel';
 import { CommentService } from './comments-list/comment/comment.service';
 

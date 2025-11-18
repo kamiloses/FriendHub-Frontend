@@ -7,16 +7,16 @@ import { Comment } from './comment/comment';
 @Component({
   selector: 'app-comments-list',
   imports: [Comment],
-  templateUrl: './comments-list.html',
-  styleUrl: './comments-list.css'
+  templateUrl: './comments-list.component.html',
+  styleUrl: './comments-list.component.css'
 })
-export class CommentsList implements OnInit {
+export class CommentsListComponent implements OnInit {
   @Input({ required: true }) currentRoute!: string;
   @Output() commentPublished = new EventEmitter<void>();
 
-  protected fetchComments = signal<CommentResponseModel[]>([]);
-  protected isLoading = signal<boolean>(false);
-  protected serverError = signal<string | null>(null);
+   fetchComments = signal<CommentResponseModel[]>([]);
+   isLoading = signal<boolean>(false);
+   serverError = signal<string | null>(null);
 
   private subscription: Subscription | null = null;
 
@@ -28,9 +28,12 @@ export class CommentsList implements OnInit {
 
   loadComments() {
     this.isLoading.set(true);
-    this.subscription = this.commentListService.findCommentsRelatedWithPost(this.currentRoute)
+    this.serverError.set(null);
+
+    this.subscription = this.commentListService
+      .findCommentsRelatedWithPost(this.currentRoute)
       .subscribe({
-        next: (comments: CommentResponseModel[]) => {
+        next: comments => {
           this.isLoading.set(false);
           this.fetchComments.set(comments);
         },
@@ -43,7 +46,7 @@ export class CommentsList implements OnInit {
   }
 
   onChildCommentPublished() {
-    this.commentPublished.emit(); // przepuszczamy event do PostDetails
+    this.commentPublished.emit();
   }
 
   ngOnDestroy(): void {
