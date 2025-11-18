@@ -1,0 +1,65 @@
+.all-searched-people {
+  margin-top: 58px;
+  background-color: #f5f5f5;
+  width: 567px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: -38px;
+}
+
+.one-person {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  background-color: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.one-person:hover {
+  transform: translateY(-2px);
+}
+
+button {
+  background-color: #8e24aa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 16px 40px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: auto;
+  height: auto;
+
+}
+
+button:hover {
+  background-color: #6a1b9a;
+  transform: scale(1.05);
+}
+
+img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.name {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  margin-top: -5px;
+}
+
+.username {
+  font-size: 14px;
+  color: #8e24aa;
+  margin-left: 12px;
+  font-weight: 400;
+  opacity: 0.8;
+  margin-top: -8px;
+}

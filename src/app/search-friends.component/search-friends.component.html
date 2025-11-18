@@ -1,1 +1,15 @@
-<p>search-friends.component works!</p>
+<div class="all-searched-people">
+  @for (user of searchedPeopleData; track user.id) {
+    <div class="one-person">
+      <img src="facebook-icon.jpg">
+      <p class="name">{{user.firstName}} {{user.lastName}}</p>
+      <p class="username">&#64;{{user.username}}</p>
+      @if (!user.isYourFriend){
+        <button (click)="onClickUserNotFriend(user.username)">Add</button>}
+      @else {
+        <button (click)="onClickUserFriend(user.username)">Remove</button>
+      }
+
+    </div>
+  }
+</div>
