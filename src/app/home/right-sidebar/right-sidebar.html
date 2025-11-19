@@ -1,31 +1,56 @@
-<div class="right-sidebar">
-  <div class="suggested-people-to-follow">
-    <span>Discover new people</span>
-    <ul class="avatars">
-      <li>
-        <div class="avatar1"><img src="facebook-icon.jpg" alt="avatar"></div>
-        <div class="suggested-profile1"><span>Jan Nowak</span></div>
-      </li>
-      <li>
-        <div class="avatar2"><img src="facebook-icon.jpg" alt="avatar"></div>
-        <div class="suggested-profile2"><span>Maciej Kowalski</span></div>
-      </li>
-      <li>
-        <div class="avatar3"><img src="facebook-icon.jpg" alt="avatar"></div>
-        <div class="suggested-profile3"><span>Piotr Wiśniewski</span></div>
-      </li>
-    </ul>
-  </div>
-  <div class="friendsList">
-    <div class="friend-container">
+<div class="friendsList">
+  @for (friend of friendDetails; track friend.id) {
+    <div class="friend-container" (click)="openChat(friend, friend.chatId)">
       <div class="friend-avatar">
         <img src="facebook-icon.jpg" alt="Avatar">
-        <span class="status-icon"></span>
+
+        @if (friend.username == userActivity.username && userActivity.isOnline) {
+          <span class="status-icon"></span>
+        } @else if (friend.username == userActivity.username && !userActivity.isOnline) {
+          <span class="status-icon-offline"></span>
+        } @else {
+          @if (friend.isOnline) {
+            <span class="status-icon"></span>
+          } @else {
+            <span class="status-icon-offline"></span>
+          }
+        }
       </div>
       <div class="friend-info">
-        <span class="friend-name">Jan Nowak</span>
-        <span class="friend-status">online</span>
+        <span class="friend-name">{{ friend.firstName }} {{ friend.lastName }}</span>
+        @if (friend.username == userActivity.username && userActivity.isOnline) {
+          <span class="friend-status">online</span>
+        } @else if (friend.username == userActivity.username && !userActivity.isOnline) {
+          <span class="friend-status">offline</span>
+        } @else {
+          @if (friend.isOnline) {
+            <span class="friend-status">online</span>
+          } @else {
+            <span class="friend-status">offline</span>
+          }
+        }
       </div>
     </div>
-  </div>
+  }
 </div>
+
+@if (isChatOpen) {
+  <div class="friend-chat-window" [ngStyle]="{'top.px': chatPosition?.top, 'left.px': chatPosition?.left}">
+    <div class="chat-header">
+      <span class="chat-name">{{ friend.username }} ChatId{{ friend.chatId }}</span>
+      <button class="close-chat" (click)="closeChat()">X</button>
+    </div>
+    <div class="chat-content">
+      @for (message of messageDetails; track message.chatId) {
+        <div class="message">
+          <img src="facebook-icon.jpg" alt="Avatar">
+          {{ message.firstName }} {{ message.lastName }}: {{ message.message }}
+        </div>
+      }
+    </div>
+    <form (ngSubmit)="onSubmit(friend.chatId)" class="send-message">
+      <input type="text" [(ngModel)]="messageText" name="message" placeholder="Send your message..." required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+}

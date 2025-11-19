@@ -11,7 +11,8 @@ import {HeaderComponent} from './header/header.component';
     LeftSidebarComponent,
     RightSidebar,
     RouterOutlet,
-    HeaderComponent
+    HeaderComponent,
+    RightSidebar
   ],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.css'

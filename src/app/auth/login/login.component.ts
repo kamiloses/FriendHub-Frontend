@@ -8,6 +8,10 @@ import { take } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { GlobalEnvironmentVariables } from '../global-environment-variables';
 
+interface LoginResponseModel {
+  token: string;
+}
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,11 +36,6 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  isInvalid(controlName: string): boolean {
-    const control = this.loginForm.get(controlName);
-    return !!(control?.touched && control.invalid);
-  }
-
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.serverError.set('Please correct the form errors');
@@ -56,23 +55,23 @@ export class LoginComponent {
       next: (response: LoginResponseModel) => {
         this.isLoading.set(false);
 
-        this.authService.login(response.token);
+        this.authService.login(response.token, login.username);
+
         this.global.setGlobalToken(response.token);
-
         this.global.setGlobalUsername(login.username);
-
         this.global.setGlobalSession(true);
 
         this.router.navigate(['home']);
       },
-      error: (err) => {
+      error: () => {
         this.isLoading.set(false);
-        if (err.status === 401) {
-          this.serverError.set("Your credentials are invalid");
-        } else {
-          this.serverError.set('Server error, please try again later');
-        }
+        this.serverError.set("Your credentials are invalid");
       }
     });
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return !!(control?.touched && control.invalid);
   }
 }

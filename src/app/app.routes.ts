@@ -7,12 +7,14 @@ import {PostListComponent} from './home/post-list/post-list.component';
 import {PostDetailsComponent} from './home/post-list/post/post-details/post-details.component';
 import {SearchFriendsComponent} from './home/search-friends/search-friends.component';
 import {AuthGuard} from './auth/auth-guard';
+import {FriendsResolver} from './home/right-sidebar/friends-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 
   {
-    path: 'auth', component: AuthLayoutComponent,
+    path: 'auth',
+    component: AuthLayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
@@ -23,10 +25,11 @@ export const routes: Routes = [
     path: 'home',
     component: HomeLayout,
     canActivate: [AuthGuard],
+    resolve: { friends: FriendsResolver },
     children: [
       { path: '', component: PostListComponent },
       { path: 'post/:id', component: PostDetailsComponent },
-      { path: 'search/:username', component: SearchFriendsComponent },
+      { path: 'search/:username', component: SearchFriendsComponent }
     ]
   }
 ];

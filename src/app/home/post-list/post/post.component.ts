@@ -11,7 +11,6 @@ import {DatePipe} from '@angular/common';
   templateUrl: './post.component.html',
   imports: [
     DatePipe,
-    RouterLink
   ],
   styleUrls: ['./post.component.css']
 })

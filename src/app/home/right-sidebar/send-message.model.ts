@@ -4,6 +4,4 @@ export interface SendMessageWSModel {
   username: string | null;
   firstName: string;
   lastName: string;
-
-
 }
