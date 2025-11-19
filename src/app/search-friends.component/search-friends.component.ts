@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -20,31 +20,44 @@ export interface SearchedPeople {
   styleUrls: ['./search-friends.component.css']
 })
 export class SearchFriendsComponent implements OnInit {
+
   searchedUsername!: string;
   searchedPeopleData: SearchedPeople[] = [];
-  username: string | null = null;
+  username: string = 'kamilosesx'; // statyczny username
 
   constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.username = sessionStorage.getItem('username');
     this.searchedUsername = this.activatedRoute.snapshot.paramMap.get('username') || '';
     this.fetchUsers();
   }
 
   fetchUsers() {
-    const headers = new HttpHeaders({ 'myUsername': 'kamiloses123' });//todo
+    const headers = new HttpHeaders({
+      'myUsername': this.username
+    });
+
     this.httpClient.get<SearchedPeople[]>(`http://localhost:8084/api/friends/${this.searchedUsername}`, { headers })
       .subscribe(posts => this.searchedPeopleData = posts);
   }
 
   onClickUserFriend(friendUsername: string) {
-    const headers = { friendUsername, myUsername: this.username ?? '' };
-    this.httpClient.delete<void>('http://localhost:8084/api/friends', { headers }).subscribe(() => this.fetchUsers());
+    const headers = new HttpHeaders({
+      'myUsername': this.username,
+      'friendUsername': friendUsername
+    });
+
+    this.httpClient.delete<void>('http://localhost:8084/api/friends', { headers })
+      .subscribe(() => this.fetchUsers());
   }
 
   onClickUserNotFriend(friendUsername: string) {
-    const headers = { friendUsername, myUsername: this.username ?? '' };
-    this.httpClient.post<void>('http://localhost:8084/api/friends', null, { headers }).subscribe(() => this.fetchUsers());
+    const headers = new HttpHeaders({
+      'myUsername': this.username,
+      'friendUsername': friendUsername
+    });
+
+    this.httpClient.post<void>('http://localhost:8084/api/friends', null, { headers })
+      .subscribe(() => this.fetchUsers());
   }
 }
