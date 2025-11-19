@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {GlobalEnvironmentVariables} from '../auth/global-environment-variables';
+import {GlobalEnvironmentVariables} from '../../auth/global-environment-variables';
 
 export interface SearchedPeople {
   id: number;

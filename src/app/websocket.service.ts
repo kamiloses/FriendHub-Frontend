@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { UserActivityModel } from './search-friends.component/user-activity.model';
-import { SendMessageWSModel } from './send-message.model';
+import { UserActivityModel } from './home/search-friends/user-activity.model';
+import { SendMessageWSModel } from './home/right-sidebar/send-message.model';
 import SockJS from 'sockjs-client';
 import { Client, IMessage } from '@stomp/stompjs';
 

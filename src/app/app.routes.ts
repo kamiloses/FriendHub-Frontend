@@ -5,7 +5,7 @@ import {RegisterComponent} from './auth/register/register.component';
 import {HomeLayout} from './home/home-layout';
 import {PostListComponent} from './home/post-list/post-list.component';
 import {PostDetailsComponent} from './home/post-list/post/post-details/post-details.component';
-import {SearchFriendsComponent} from './search-friends.component/search-friends.component';
+import {SearchFriendsComponent} from './home/search-friends/search-friends.component';
 import {AuthGuard} from './auth/auth-guard';
 
 export const routes: Routes = [

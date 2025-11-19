@@ -6,10 +6,10 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-header',
   standalone: true,
   imports: [FormsModule, RouterModule],
-  templateUrl: './header.html',
-  styleUrls: ['./header.css']
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class Header {
+export class HeaderComponent {
   searchedUser: string = '';
 
   constructor(private router: Router) {}

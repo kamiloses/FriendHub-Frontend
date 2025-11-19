@@ -37,7 +37,7 @@ export class GlobalEnvironmentVariables {
     return this.globalUsernameSubject.asObservable();
   }
 
-  getGlobalUsernameValue(): string | null {   // <- nowa metoda
+  getGlobalUsernameValue(): string | null {
     return this.globalUsernameSubject.getValue();
   }
 
