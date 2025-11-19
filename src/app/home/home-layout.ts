@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LeftSidebar} from './left-sidebar/left-sidebar';
+import {LeftSidebar} from './left-sidebar/left-sidebar.component';
 import {RightSidebar} from './right-sidebar/right-sidebar';
 import {RouterOutlet} from '@angular/router';
 import {Header} from './header/header';

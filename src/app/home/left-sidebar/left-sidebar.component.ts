@@ -8,11 +8,11 @@ import {GlobalEnvironmentVariables} from '../../auth/global-environment-variable
     RouterLink,
     RouterLinkActive
   ],
-  templateUrl: './left-sidebar.html',
-  styleUrl: './left-sidebar.css',
+  templateUrl: './left-sidebar.component.html',
+  styleUrl: './left-sidebar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LeftSidebar implements OnInit {
+export class LeftSidebarComponent implements OnInit {
 
 
   constructor(private globalEnvironmentVariables: GlobalEnvironmentVariables, private router: Router) {
@@ -35,7 +35,9 @@ export class LeftSidebar implements OnInit {
     this.globalEnvironmentVariables.setGlobalUsername(null);
     this.globalEnvironmentVariables.setGlobalSession(false);
 
-    this.router.navigate(['/login']).then(r => console.log("successfully logged out."));
+      this.router.navigate(['/auth/login']);
 
   }
+
+
 }
