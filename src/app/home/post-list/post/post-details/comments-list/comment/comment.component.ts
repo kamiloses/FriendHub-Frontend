@@ -4,14 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { CommentService } from './comment.service';
 import { PublishCommentModel } from './publishCommentModel';
-import {GlobalEnvironmentVariables} from '../../../../../../auth/global-environment-variables';
+import { GlobalEnvironmentVariables } from '../../../../../../auth/global-environment-variables';
 
-@Component({
-  selector: 'app-comment',
-  imports: [FormsModule, NgClass],
-  templateUrl: './comment.component.html',
-  styleUrl: './comment.component.css'
-})
 @Component({
   selector: 'app-comment',
   imports: [FormsModule, NgClass],

@@ -1,20 +1,34 @@
 import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import {PostModelResponse} from './post-response.model';
-import {PostService} from './post.service';
+import {Router, RouterLink} from '@angular/router';
+import { PostModelResponse } from './post-response.model';
+import { PostService } from './post.service';
+import {GlobalEnvironmentVariables} from '../../../auth/global-environment-variables';
+import {DatePipe} from '@angular/common';
+
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [RouterLink, DatePipe],
   templateUrl: './post.component.html',
+  imports: [
+    DatePipe,
+    RouterLink
+  ],
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
   @Input() post!: PostModelResponse;
-  @Input() loggedUserUsername!: string;
+  loggedUserUsername!: string;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private router: Router,
+    private global: GlobalEnvironmentVariables
+  ) {
+    this.loggedUserUsername = this.global.getGlobalUsernameValue() || '';
+  }
+  goToPostDetail(postId: string) {
+    this.router.navigate(['/home/post', postId]);
+  }
 
   retweet(event: MouseEvent): void {
     event.stopPropagation();

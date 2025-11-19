@@ -1,4 +1,4 @@
-<div [routerLink]="['/user', post.user.username, 'post', post.id]" class="post-container">
+<div (click)="goToPostDetail(post.id)" class="post-container">
   <div class="user-data">
     <img src="facebook-icon.jpg" alt="image not loaded">
     <p class="name">{{ post.user.firstName + ' ' + post.user.lastName }}</p>
