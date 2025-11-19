@@ -7,13 +7,12 @@ import {PublishCommentModel} from './publishCommentModel';
   providedIn: 'root'
 })
 export class CommentService {
+  constructor(private readonly http: HttpClient) {}
 
-
-  constructor(private readonly http:HttpClient) {
-  }
-
-  sendComment(username:string,commentModel: PublishCommentModel) {
-    username="kamilosesx";
-    return  this.http.post<void[]>("http://localhost:8083/api/comments?username="+username, commentModel);
+  sendComment(username: string, commentModel: PublishCommentModel) {
+    return this.http.post<void[]>(
+      `http://localhost:8083/api/comments?username=${username}`,
+      commentModel
+    );
   }
 }

@@ -6,6 +6,7 @@ import { PostDetailsService } from './post-details.service';
 import { PublishCommentModel } from './comments-list/comment/publishCommentModel';
 import { CommentService } from './comments-list/comment/comment.service';
 import {CommentsListComponent} from './comments-list/comments-list.component';
+import {GlobalEnvironmentVariables} from '../../../../auth/global-environment-variables';
 
 @Component({
   selector: 'app-post-details',
@@ -19,15 +20,15 @@ import {CommentsListComponent} from './comments-list/comments-list.component';
 export class PostDetailsComponent implements OnInit {
   text: string = "";
   postId!: string;
-
-   post = signal<PostModelResponse | null>(null);
+  post = signal<PostModelResponse | null>(null);
   serverError = signal<string | null>(null);
   isLoading = signal<boolean>(false);
 
   constructor(
     private readonly postDetailsService: PostDetailsService,
     private readonly route: ActivatedRoute,
-    private readonly commentService: CommentService
+    private readonly commentService: CommentService,
+    private readonly global: GlobalEnvironmentVariables
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +44,6 @@ export class PostDetailsComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: err => {
-        console.error(err);
         this.serverError.set("There was an error fetching post.");
         this.isLoading.set(false);
       }
@@ -55,15 +55,17 @@ export class PostDetailsComponent implements OnInit {
   }
 
   onPublish() {
-    if (!this.text || this.text.trim() === '') return;
+    if (!this.text?.trim()) return;
 
     const commentModel: PublishCommentModel = {
       postId: this.postId,
       parentCommentId: null,
       content: this.text.trim()
     };
-    //todo static
-    this.commentService.sendComment("kamilosesx", commentModel).subscribe({
+
+    const username = this.global.getGlobalUsernameValue();
+
+    this.commentService.sendComment(username!, commentModel).subscribe({
       next: () => {
         this.text = '';
         this.reloadPosts();
