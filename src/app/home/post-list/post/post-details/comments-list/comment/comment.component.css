@@ -1,25 +1,27 @@
 .comment {
-  background-color: #1a1a1a;
-  border-radius: 1.5rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 10px auto;
   width: 90%;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: Arial, sans-serif;
-  transition: background-color 0.3s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .comment:hover {
-  background-color: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(63,81,181,0.15);
+  background-color: #f9f9f9;
 }
 
 .user-data {
   display: flex;
-  align-items: center;
-  gap: 1rem;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .user-data img {
@@ -31,24 +33,24 @@
 }
 
 .name {
-  font-weight: bold;
-  color: #ff9966;
+  font-weight: 700;
+  color: #3f51b5;
   margin: 0;
   font-size: 1.1rem;
 }
 
 .unique-name,
 .date {
-  color: #00ffea;
+  color: #ff7043;
   font-size: 0.9rem;
   margin: 0 0 0 0.5rem;
 }
 
 .comment-text {
-  color: #ddd;
+  color: #333;
   line-height: 1.5;
-  margin-top: 0.75rem;
   font-size: 1rem;
+  margin-top: 0.75rem;
   padding-bottom: 0.5rem;
 }
 
@@ -72,15 +74,16 @@
   font-size: 0.9rem;
   user-select: none;
   padding: 0;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
   text-decoration: underline;
-  color: #00ffea;
+  color: #3f51b5;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .respond-btn:hover,
 .toggle-replies:hover {
   opacity: 1;
+  color: #ff7043;
   text-decoration: none;
 }
 
@@ -93,7 +96,6 @@
 }
 
 .toggle-replies {
-  color: #4da6ff;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -117,51 +119,34 @@ form input[type="text"] {
   flex: 1;
   height: 2rem;
   padding: 0.4rem 0.75rem;
-  border: 1px solid #00ffea;
+  border: 1px solid #3f51b5;
   border-radius: 1rem;
-  background-color: #121212;
-  color: #fff;
+  background-color: #f5f5f5;
+  color: #333;
   font-size: 0.9rem;
   box-sizing: border-box;
-  margin: 0;
 }
 
 form button[type="submit"] {
   padding: 0.4rem 1rem;
   height: 2rem;
-  border: 1px solid #00ffea;
+  border: 1px solid #3f51b5;
   border-radius: 1rem;
   background: transparent;
-  color: #00ffea;
+  color: #3f51b5;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 form button[type="submit"]:hover {
-  background-color: #00ffea;
-  color: #121212;
-}
-
-.interactions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 0;
-  color: #00ffea;
-}
-
-.interactions i {
-  margin: 0;
-  color: inherit;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
+  background-color: #3f51b5;
+  color: #ffffff;
 }
 
 .children-comments {
   margin-left: 1rem;
-  border-left: 1px solid #444;
+  border-left: 1px solid #e0e0e0;
   padding-left: 1rem;
   margin-top: 1rem;
 }

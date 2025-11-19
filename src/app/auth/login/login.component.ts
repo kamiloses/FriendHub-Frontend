@@ -32,7 +32,6 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  // funkcja sprawdzająca walidację kontrolki
   isInvalid(controlName: string): boolean {
     const control = this.loginForm.get(controlName);
     return !!(control?.touched && control.invalid);
@@ -57,17 +56,13 @@ export class LoginComponent {
       next: (response: LoginResponseModel) => {
         this.isLoading.set(false);
 
-        // zapis tokenu tylko na login
         this.authService.login(response.token);
         this.global.setGlobalToken(response.token);
 
-        // zapis username z formularza
         this.global.setGlobalUsername(login.username);
 
-        // oznaczamy sesję jako aktywną
         this.global.setGlobalSession(true);
 
-        // redirect do home
         this.router.navigate(['home']);
       },
       error: (err) => {

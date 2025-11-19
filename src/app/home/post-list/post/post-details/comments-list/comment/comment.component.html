@@ -1,8 +1,9 @@
 <div class="comment">
-  <div class="user-data"><img src="facebook-icon.jpg" alt="image not loaded">
-    <p class="name">TO jest TEST</p>
-    <p class="unique-name">&#64;kamiloses</p>
-    <p class="date"> 20.04.2024</p>
+  <div class="user-data">
+    <img src="facebook-icon.jpg" alt="image not loaded">
+    <p class="name">{{ comment.userDetails.firstName }} {{comment.userDetails.lastName}}</p>
+    <p class="unique-name">&#64;{{ comment.userDetails.username }}</p>
+    <p class="date">20.04.2024</p>
   </div>
   <div class="comment-text">
     <p>{{ comment.content }}</p>
@@ -21,8 +22,6 @@
           <span>({{ comment.replies.length }})</span>
         </button>
       }
-
-
     </div>
 
     @if (showReplyInput) {

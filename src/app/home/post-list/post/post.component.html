@@ -10,7 +10,6 @@
     {{ post.content }}
 
     <div class="interactions">
-      <i class="fa fa-comment">0</i>
 
       @if (post.retweetedByMe) {
         <i class="fa fa-retweet retweeted" (click)="undoRetweet($event)"></i>

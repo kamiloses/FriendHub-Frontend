@@ -1,3 +1,11 @@
+.post-details-container{
+  position: absolute;
+  left: 520px;
+  top: 20px;
+
+}
+
+
 .post-container {
   background-color: #ffffff;
   font-family: Arial, sans-serif;

@@ -1,3 +1,5 @@
+
+<div class="post-details-container">
 @if (isLoading()) {
   <div class="loading-message">
     <span class="loading-message-icon">⏳</span>
@@ -19,10 +21,6 @@
     </div>
     <div class="post-text">
       {{post()!.content}}
-      <div class="interactions">
-        <i class="fa fa-comment"></i>
-        <i class="fa fa-heart"></i>
-      </div>
     </div>
   </div>
 
@@ -38,4 +36,4 @@
     [currentRoute]="postId"
     (commentPublished)="reloadPosts()">
   </app-comments-list>
-}
+}</div>
