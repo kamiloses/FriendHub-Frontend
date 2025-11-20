@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { UserActivityModel } from './home/search-friends/user-activity.model';
 import { SendMessageWSModel } from './home/right-sidebar/send-message.model';
-import { Client, IMessage, StompSubscription, StompConfig, StompHeaders } from '@stomp/stompjs';
+import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 @Injectable({
@@ -14,27 +14,31 @@ export class WebSocketService {
   public friendsOnline$ = new Subject<UserActivityModel>();
 
   connect(loggedUser: string | null): void {
+    if (!loggedUser) {
+      console.error('Cannot connect WebSocket: loggedUser is null!');
+      return;
+    }
+
     this.stompClient = new Client({
-      brokerURL: undefined, // jeśli używamy SockJS, brokerURL = undefined
+      brokerURL: undefined, // używamy SockJS
       webSocketFactory: () => new SockJS('http://localhost:8084/ws'),
       reconnectDelay: 5000,
-      debug: (str) => console.log('[STOMP DEBUG]', str),
+      debug: (msg) => console.log('[STOMP DEBUG]', msg),
+      connectHeaders: { username: loggedUser }, // 🔑 nagłówek dla backendu
       onConnect: (frame) => {
-        console.log('WebSocket connected', frame);
-        if (loggedUser) {
-          this.stompClient.publish({
-            destination: '/app/chat.activeFriends',
-            body: loggedUser
-          });
-        }
+        console.log('WebSocket connected as:', loggedUser);
 
-        this.stompClient.subscribe('/topic/public/friendsOnline', (message: IMessage) => {
-          try {
-            const friendStatus: UserActivityModel = JSON.parse(message.body);
-            this.onFriendsOnlineUpdate(friendStatus);
-          } catch (err) {
-            console.error('Error parsing friendsOnline message:', err);
-          }
+        // Subskrypcja statusu online znajomych
+        this.stompClient.subscribe('/topic/public/friendsOnline', (msg: IMessage) => {
+          const payload: UserActivityModel = JSON.parse(msg.body);
+          console.log('Online update received:', payload);
+          this.friendsOnline$.next(payload);
+        });
+
+        // Opcjonalnie: powiadomienie backendu, że user jest online
+        this.stompClient.publish({
+          destination: '/app/chat.activeFriends',
+          body: loggedUser
         });
       },
       onStompError: (frame) => {
@@ -48,14 +52,6 @@ export class WebSocketService {
     this.stompClient.activate();
   }
 
-  private onFriendsOnlineUpdate(userActivityDto: UserActivityModel): void {
-    this.friendsOnline$.next(userActivityDto);
-  }
-
-  getStompClient(): Client {
-    return this.stompClient;
-  }
-
   sendMessageWs: SendMessageWSModel = {
     chatId: '',
     message: '',
@@ -64,7 +60,7 @@ export class WebSocketService {
     lastName: ''
   };
 
-  sendMessage(message: string, username: string | null, chatId: string): void {
+  sendMessage(message: string, username: string, chatId: string): void {
     if (!this.stompClient || !this.stompClient.connected) {
       console.warn('STOMP client not connected yet.');
       return;
@@ -78,6 +74,10 @@ export class WebSocketService {
       destination: '/app/chat.sendMessage',
       body: JSON.stringify(this.sendMessageWs)
     });
+  }
+
+  getStompClient(): Client {
+    return this.stompClient;
   }
 
   sendFriendInvitationNotification(): void {

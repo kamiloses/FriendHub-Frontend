@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { User } from '../post-list/user.model';
@@ -20,21 +20,27 @@ import { NgStyle } from '@angular/common';
 })
 export class RightSidebar implements OnInit, OnDestroy {
 
-  friendDetails: User[] = [];
-  messageDetails: SendMessageWSModel[] = [];
+  // SIGNALS
+  friendDetails = signal<User[]>([]);
+  messageDetails = signal<SendMessageWSModel[]>([]);
+
   private subscriptions: Subscription[] = [];
-  private currentRoute!: string;
+  storedUsername: string | null = null;
 
   isChatOpen = false;
   chatPosition: { top: number; left: number } | null = null;
-  storedUsername: string | null = null;
 
-  userActivity: { username: string, isOnline: boolean } = { username: '', isOnline: false };
   friend!: User;
 
-  messageBody: SendMessageWSModel = { chatId: '', message: '', username: null, firstName: '', lastName: '' };
+  messageBody: SendMessageWSModel = {
+    chatId: '',
+    message: '',
+    username: null,
+    firstName: '',
+    lastName: ''
+  };
+
   messageText = '';
-  receiveMessageFromSockets: SendMessageWSModel = { chatId: '', message: '', username: null, firstName: '', lastName: '' };
 
   constructor(
     private httpClient: HttpClient,
@@ -42,76 +48,99 @@ export class RightSidebar implements OnInit, OnDestroy {
     private router: Router,
     private webSocketService: WebSocketService
   ) {
+
+    // 🔥 ROUTER WATCHER
     const routeSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentRoute = event.urlAfterRedirects;
+      .subscribe(() => {
         this.storedUsername = localStorage.getItem('username');
-        this.handleRouteChange(this.storedUsername, this.currentRoute);
-
 
         if (this.storedUsername) {
+          this.webSocketService.connect(this.storedUsername);
           this.loadFriends(this.storedUsername);
         }
       });
+
     this.subscriptions.push(routeSub);
   }
 
   ngOnInit(): void {
-    // Aktualizacja statusów online znajomych
-    const onlineSub = this.webSocketService.friendsOnline$.subscribe((userActivityDto: UserActivityModel) => {
-      const friend = this.friendDetails.find(f => f.username === userActivityDto.username);
-      if (friend) {
-        friend.isOnline = userActivityDto.isOnline;
+
+    // 🔥 WEBSOCKET — odbiór statusów online/offline
+    const onlineSub = this.webSocketService.friendsOnline$.subscribe(
+      (dto: UserActivityModel) => {
+
+        // LOGI DO KONSOLI
+        console.log(
+          `[STATUS] ${dto.username} jest teraz ${dto.isOnline ? 'ONLINE' : 'OFFLINE'}`
+        );
+
+        // IMMUTABLE UPDATE — Angular wykrywa zmianę
+        this.friendDetails.update(list =>
+          list.map(f =>
+            f.username === dto.username
+              ? { ...f, isOnline: dto.isOnline }
+              : f
+          )
+        );
       }
-      if (userActivityDto.username === this.userActivity.username) {
-        this.userActivity.isOnline = userActivityDto.isOnline;
-      }
-    });
+    );
+
     this.subscriptions.push(onlineSub);
   }
 
+
+  // 🔥 Pobieranie znajomych z API
   private loadFriends(username: string): void {
-    console.error("ddd "+username)
-    const friendsSub = this.httpClient.get<User[]>('http://localhost:8084/api/friends?username=' + username)
+    const friendsSub = this.httpClient
+      .get<User[]>('http://localhost:8084/api/friends?username=' + username)
       .subscribe({
-        next: (data) => {this.friendDetails = data
-        console.error(data)},
-        error: (err) => console.error('Error while downloading friends:', err)
+        next: (data) => this.friendDetails.set(data),
+        error: (err) => console.error('Error loading friends:', err)
       });
+
     this.subscriptions.push(friendsSub);
   }
 
-  private handleRouteChange(loggedUser: string | null, currentRoute: string): void {
-    if (currentRoute !== '/login' && currentRoute !== '/register') {
-      this.webSocketService.connect(loggedUser);
-    }
-  }
 
-  openChat(friendDetails: User, chatId: string): void {
-    const messagesSub = this.httpClient.get<SendMessageWSModel[]>('http://localhost:8085/api/message/' + chatId)
+  // 🔥 OTWIERANIE OKNA CZATU
+  openChat(friend: User, chatId: string): void {
+
+    // Pobierz wcześniejsze wiadomości
+    const msgSub = this.httpClient
+      .get<SendMessageWSModel[]>('http://localhost:8085/api/message/' + chatId)
       .subscribe({
-        next: (data) => this.messageDetails = data,
-        error: (err) => console.error('Error while downloading messages:', err)
+        next: (data) => this.messageDetails.set(data),
+        error: (err) => console.error('Error loading messages:', err)
       });
-    this.subscriptions.push(messagesSub);
 
-    this.webSocketService.getStompClient().subscribe(`/topic/public/${chatId}`, (msg: any) => {
-      const payload: SendMessageWSModel = JSON.parse(msg.body);
-      this.receiveMessageFromSockets = payload;
-      this.messageDetails = [...this.messageDetails, payload];
-    });
+    this.subscriptions.push(msgSub);
 
-    this.friend = friendDetails;
+    // Subskrypcja WebSocket
+    this.webSocketService.getStompClient().subscribe(
+      `/topic/public/${chatId}`,
+      (msg: any) => {
+        const payload: SendMessageWSModel = JSON.parse(msg.body);
+
+        this.messageDetails.set([...this.messageDetails(), payload]);
+      }
+    );
+
+    this.friend = friend;
+
     this.chatPosition = { top: 440, left: 859 };
     this.isChatOpen = true;
   }
 
+
+  // 🔥 ZAMYKANIE CZATU
   closeChat(): void {
     this.isChatOpen = false;
     this.chatPosition = null;
   }
 
+
+  // 🔥 WYSYŁANIE WIADOMOŚCI
   onSubmit(chatId: string): void {
     if (!this.storedUsername) return;
 
@@ -121,16 +150,30 @@ export class RightSidebar implements OnInit, OnDestroy {
 
     this.messageText = '';
 
-    this.httpClient.post<any[]>('http://localhost:8085/api/message', this.messageBody).subscribe();
-    this.webSocketService.sendMessage(this.messageBody.message, this.storedUsername, chatId);
+    // REST
+    this.httpClient.post(
+      'http://localhost:8085/api/message',
+      this.messageBody
+    ).subscribe();
+
+    // WebSocket
+    this.webSocketService.sendMessage(
+      this.messageBody.message,
+      this.storedUsername,
+      chatId
+    );
   }
 
+
+  // 🔥 WYLOGOWANIE
   logout(): void {
     sessionStorage.clear();
     localStorage.clear();
+
     this.globalEnvironmentVariables.setGlobalToken(null);
     this.globalEnvironmentVariables.setGlobalUsername(null);
     this.globalEnvironmentVariables.setGlobalSession(false);
+
     this.router.navigate(['/login']);
   }
 

@@ -1,55 +1,66 @@
 <div class="friendsList">
-  @for (friend of friendDetails; track friend.id) {
-    <div class="friend-container" (click)="openChat(friend, friend.chatId)">
-      <div class="friend-avatar">
-        <img src="facebook-icon.jpg" alt="Avatar">
+  @for (friend of friendDetails(); track friend.id) {
 
-        @if (friend.username == userActivity.username && userActivity.isOnline) {
+    <div class="friend-container" (click)="openChat(friend, friend.chatId)">
+
+      <div class="friend-avatar">
+        <img src="assets/facebook-icon.jpg" alt="Avatar">
+
+        @if (friend.isOnline) {
           <span class="status-icon"></span>
-        } @else if (friend.username == userActivity.username && !userActivity.isOnline) {
+        } @else {
           <span class="status-icon-offline"></span>
-        } @else {
-          @if (friend.isOnline) {
-            <span class="status-icon"></span>
-          } @else {
-            <span class="status-icon-offline"></span>
-          }
         }
       </div>
+
       <div class="friend-info">
-        <span class="friend-name">{{ friend.firstName }} {{ friend.lastName }}</span>
-        @if (friend.username == userActivity.username && userActivity.isOnline) {
+        <span class="friend-name">
+          {{ friend.firstName }} {{ friend.lastName }}
+        </span>
+
+        @if (friend.isOnline) {
           <span class="friend-status">online</span>
-        } @else if (friend.username == userActivity.username && !userActivity.isOnline) {
-          <span class="friend-status">offline</span>
         } @else {
-          @if (friend.isOnline) {
-            <span class="friend-status">online</span>
-          } @else {
-            <span class="friend-status">offline</span>
-          }
+          <span class="friend-status">offline</span>
         }
       </div>
+
     </div>
+
   }
 </div>
 
+
+<!-- CZAT -->
 @if (isChatOpen) {
-  <div class="friend-chat-window" [ngStyle]="{'top.px': chatPosition?.top, 'left.px': chatPosition?.left}">
+  <div
+    class="friend-chat-window"
+    [ngStyle]="{ 'top.px': chatPosition?.top, 'left.px': chatPosition?.left }"
+  >
     <div class="chat-header">
-      <span class="chat-name">{{ friend.username }} ChatId{{ friend.chatId }}</span>
+      <span class="chat-name">
+        {{ friend.username }} — ChatID: {{ friend.chatId }}
+      </span>
       <button class="close-chat" (click)="closeChat()">X</button>
     </div>
+
     <div class="chat-content">
-      @for (message of messageDetails; track message.chatId) {
+      @for (message of messageDetails(); track message.chatId) {
         <div class="message">
-          <img src="facebook-icon.jpg" alt="Avatar">
+          <img src="assets/facebook-icon.jpg" alt="Avatar">
           {{ message.firstName }} {{ message.lastName }}: {{ message.message }}
         </div>
       }
     </div>
+
     <form (ngSubmit)="onSubmit(friend.chatId)" class="send-message">
-      <input type="text" [(ngModel)]="messageText" name="message" placeholder="Send your message..." required>
+      <input
+        type="text"
+        [(ngModel)]="messageText"
+        name="message"
+        placeholder="Send your message..."
+        required
+      >
       <button type="submit">Send</button>
     </form>
   </div>
