@@ -20,22 +20,20 @@ export class WebSocketService {
     }
 
     this.stompClient = new Client({
-      brokerURL: undefined, // używamy SockJS
+      brokerURL: undefined,
       webSocketFactory: () => new SockJS('http://localhost:8084/ws'),
       reconnectDelay: 5000,
       debug: (msg) => console.log('[STOMP DEBUG]', msg),
-      connectHeaders: { username: loggedUser }, // 🔑 nagłówek dla backendu
+      connectHeaders: { username: loggedUser },
       onConnect: (frame) => {
         console.log('WebSocket connected as:', loggedUser);
 
-        // Subskrypcja statusu online znajomych
         this.stompClient.subscribe('/topic/public/friendsOnline', (msg: IMessage) => {
           const payload: UserActivityModel = JSON.parse(msg.body);
           console.log('Online update received:', payload);
           this.friendsOnline$.next(payload);
         });
 
-        // Opcjonalnie: powiadomienie backendu, że user jest online
         this.stompClient.publish({
           destination: '/app/chat.activeFriends',
           body: loggedUser
