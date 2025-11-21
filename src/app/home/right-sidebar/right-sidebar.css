@@ -6,8 +6,6 @@ body {
 
 .friendsList {
   position: fixed;
-  /*todo zmień top na 0*/
-  top: 100px;
   right: 0;
   width: 30vw;
   height: 100vh;
