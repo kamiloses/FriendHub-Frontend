@@ -6,23 +6,35 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PostService {
+
   private baseUrl = 'http://localhost:8080/api';
+  private likeUrl = 'http://localhost:8087/api/like';
 
   constructor(private http: HttpClient) {}
 
-  retweet(postId: number, username: string): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/retweet?postId=${postId}&username=${username}`, null);
+  retweet(postId: string, username: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/retweet?postId=${postId}&username=${username}`,
+      null
+    );
   }
 
-  undoRetweet(postId: number, username: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/retweet?postId=${postId}&username=${username}`);
+  undoRetweet(postId: string, username: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.baseUrl}/retweet?postId=${postId}&username=${username}`
+    );
   }
 
-  like(postId: number, username: string): Observable<void> {
-    return this.http.post<void>(`http://localhost:8087/api/like?postId=${postId}&username=${username}`, null);
+  like(postId: string, username: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.likeUrl}?postId=${postId}&username=${username}`,
+      null
+    );
   }
 
-  unlike(postId: number, username: string): Observable<void> {
-    return this.http.delete<void>(`http://localhost:8087/api/like?postId=${postId}&username=${username}`);
+  unlike(postId: string, username: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.likeUrl}?postId=${postId}&username=${username}`
+    );
   }
 }

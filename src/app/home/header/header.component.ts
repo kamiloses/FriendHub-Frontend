@@ -16,8 +16,10 @@ export class HeaderComponent {
 
   onSearch() {
     const username = this.searchedUser.trim();
-    if (username) {
-      this.router.navigate(['/home/search', username]);
-    }
+
+    if (!username) return;
+
+    this.router.navigate(['/home/search', username]);
+    this.searchedUser = '';
   }
 }

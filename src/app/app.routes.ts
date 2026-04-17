@@ -25,7 +25,7 @@ export const routes: Routes = [
     path: 'home',
     component: HomeLayout,
     canActivate: [AuthGuard],
-    resolve: { friends: FriendsResolver },
+     resolve: { friends: FriendsResolver },
     children: [
       { path: '', component: PostListComponent },
       { path: 'post/:id', component: PostDetailsComponent },

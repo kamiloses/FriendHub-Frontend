@@ -1,23 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {RightSidebarComponent} from './right-sidebar.component';
 
-import { RightSidebar } from './right-sidebar';
 
 describe('RightSidebar', () => {
-  let component: RightSidebar;
-  let fixture: ComponentFixture<RightSidebar>;
+  let component: RightSidebarComponent;
+  let fixture: ComponentFixture<RightSidebarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RightSidebar]
+      imports: [RightSidebarComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(RightSidebar);
+    fixture = TestBed.createComponent(RightSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-});
+  });})

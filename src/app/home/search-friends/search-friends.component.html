@@ -1,15 +1,30 @@
 <div class="all-searched-people">
-  @for (user of searchedPeopleData; track user.id) {
+
+  @if (isLoading()) {
+    <p>Loading...</p>
+  }
+
+  @if (!isLoading() && searchedPeopleData().length === 0) {
+    <p>No users found</p>
+  }
+
+  @for (user of searchedPeopleData(); track user.id) {
     <div class="one-person">
-      <img src="facebook-icon.jpg">
+      <img [src]="user.profileImageUrl || 'default-avatar.png'">
+
       <p class="name">{{user.firstName}} {{user.lastName}}</p>
       <p class="username">&#64;{{user.username}}</p>
-      @if (!user.isYourFriend){
-        <button (click)="onClickUserNotFriend(user.username)">Add</button>}
-      @else {
-        <button (click)="onClickUserFriend(user.username)">Remove</button>
-      }
 
+      @if (!user.isYourFriend) {
+        <button (click)="onClickUserNotFriend(user.username)">
+          Add
+        </button>
+      } @else {
+        <button (click)="onClickUserFriend(user.username)">
+          Remove
+        </button>
+      }
     </div>
   }
+
 </div>

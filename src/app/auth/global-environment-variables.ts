@@ -1,5 +1,5 @@
-import {BehaviorSubject} from 'rxjs';
-import {Injectable} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,9 @@ export class GlobalEnvironmentVariables {
     this.initializeState();
   }
 
-  private initializeState() {
-    const storedSession = sessionStorage.getItem('globalSession') === 'true';
-    const storedUsername = sessionStorage.getItem('username');
+  private initializeState(): void {
+    const storedSession = localStorage.getItem('globalSession') === 'true';
+    const storedUsername = localStorage.getItem('username');
     const storedToken = localStorage.getItem('token');
 
     this.globalSessionSubject.next(storedSession);
@@ -28,9 +28,13 @@ export class GlobalEnvironmentVariables {
     return this.globalSessionSubject.asObservable();
   }
 
-  setGlobalSession(value: boolean) {
+  getGlobalSession(): boolean {
+    return this.globalSessionSubject.getValue();
+  }
+
+  setGlobalSession(value: boolean): void {
     this.globalSessionSubject.next(value);
-    sessionStorage.setItem('globalSession', value.toString());
+    localStorage.setItem('globalSession', String(value));
   }
 
   getGlobalUsername$() {
@@ -41,12 +45,13 @@ export class GlobalEnvironmentVariables {
     return this.globalUsernameSubject.getValue();
   }
 
-  setGlobalUsername(value: string | null) {
+  setGlobalUsername(value: string | null): void {
     this.globalUsernameSubject.next(value);
+
     if (value) {
-      sessionStorage.setItem('username', value);
+      localStorage.setItem('username', value);
     } else {
-      sessionStorage.removeItem('username');
+      localStorage.removeItem('username');
     }
   }
 
@@ -54,12 +59,27 @@ export class GlobalEnvironmentVariables {
     return this.globalTokenSubject.asObservable();
   }
 
-  setGlobalToken(value: string | null) {
+  getGlobalToken(): string | null {
+    return this.globalTokenSubject.getValue();
+  }
+
+  setGlobalToken(value: string | null): void {
     this.globalTokenSubject.next(value);
+
     if (value) {
       localStorage.setItem('token', value);
     } else {
       localStorage.removeItem('token');
     }
+  }
+
+  clear(): void {
+    this.globalSessionSubject.next(false);
+    this.globalUsernameSubject.next(null);
+    this.globalTokenSubject.next(null);
+
+    localStorage.removeItem('globalSession');
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
   }
 }

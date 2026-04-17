@@ -2,15 +2,13 @@
 
   @if (isLoading()) {
     <div class="loading-message">
-      <span class="loading-message-icon">⏳</span>
-      Loading comments...
+      ⏳ Loading comments...
     </div>
   }
   @else if (serverError()) {
     <div class="error-message">
-      <span class="error-message-icon">⚠️</span>
-      {{ serverError() }}
-      <button (click)="loadComments()">Try Again ...</button>
+      ⚠️ {{ serverError() }}
+      <button (click)="loadComments()">Try Again</button>
     </div>
   }
   @else {

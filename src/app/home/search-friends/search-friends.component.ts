@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,8 +14,9 @@ import {FriendsService} from './search-friends.service';
 })
 export class SearchFriendsComponent implements OnInit {
 
-  searchedUsername!: string;
-  searchedPeopleData: SearchedPeople[] = [];
+  searchedUsername = signal('');
+  searchedPeopleData = signal<SearchedPeople[]>([]);
+  isLoading = signal(false);
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,20 +24,40 @@ export class SearchFriendsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.searchedUsername = this.activatedRoute.snapshot.paramMap.get('username') || '';
-    this.fetchUsers();
+    this.activatedRoute.paramMap.subscribe(params => {
+      const username = params.get('username') || '';
+      this.searchedUsername.set(username);
+      this.fetchUsers();
+    });
   }
 
   fetchUsers() {
-    this.friendsService.getSearchedPeople(this.searchedUsername)
-      .subscribe(users => this.searchedPeopleData = users);
+    this.isLoading.set(true);
+
+    this.friendsService.getSearchedPeople(this.searchedUsername())
+      .subscribe(users => {
+        this.searchedPeopleData.set(users);
+        this.isLoading.set(false);
+      });
   }
 
-  onClickUserFriend(friendUsername: string) {
-    this.friendsService.removeFriend(friendUsername).subscribe(() => this.fetchUsers());
+  onClickUserNotFriend(username: string) {
+    this.friendsService.addFriend(username).subscribe(() => {
+      this.searchedPeopleData.update(users =>
+        users.map(u =>
+          u.username === username ? { ...u, isYourFriend: true } : u
+        )
+      );
+    });
   }
 
-  onClickUserNotFriend(friendUsername: string) {
-    this.friendsService.addFriend(friendUsername).subscribe(() => this.fetchUsers());
+  onClickUserFriend(username: string) {
+    this.friendsService.removeFriend(username).subscribe(() => {
+      this.searchedPeopleData.update(users =>
+        users.map(u =>
+          u.username === username ? { ...u, isYourFriend: false } : u
+        )
+      );
+    });
   }
 }

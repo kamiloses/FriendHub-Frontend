@@ -1,22 +1,24 @@
 import { Component, Input, OnInit, Output, EventEmitter, signal } from '@angular/core';
-import { CommentResponseModel } from './comment/comment-response.model';
-import { CommentsListService } from './comments-list.service';
 import { Subscription } from 'rxjs';
-import {CommentComponent} from './comment/comment.component';
+import { CommentsListService } from './comments-list.service';
+import { CommentResponseModel } from './comment/comment-response.model';
+import { CommentComponent } from './comment/comment.component';
 
 @Component({
-  selector: 'app-comments-list',
-  imports: [CommentComponent],
-  templateUrl: './comments-list.component.html',
-  styleUrl: './comments-list.component.css'
+    selector: 'app-comments-list',
+    imports: [CommentComponent],
+    templateUrl: './comments-list.component.html',
+    standalone: true,
+    styleUrl: './comments-list.component.css'
 })
 export class CommentsListComponent implements OnInit {
+
   @Input({ required: true }) currentRoute!: string;
   @Output() commentPublished = new EventEmitter<void>();
 
-   fetchComments = signal<CommentResponseModel[]>([]);
-   isLoading = signal<boolean>(false);
-   serverError = signal<string | null>(null);
+  fetchComments = signal<CommentResponseModel[]>([]);
+  isLoading = signal(false);
+  serverError = signal<string | null>(null);
 
   private subscription: Subscription | null = null;
 
@@ -33,16 +35,36 @@ export class CommentsListComponent implements OnInit {
     this.subscription = this.commentListService
       .findCommentsRelatedWithPost(this.currentRoute)
       .subscribe({
-        next: comments => {
+        next: (comments) => {
           this.isLoading.set(false);
-          this.fetchComments.set(comments);
+          this.fetchComments.set(this.buildTree(comments));
         },
-        error: err => {
+        error: (err) => {
           this.isLoading.set(false);
-          this.serverError.set("Error loading comments");
+          this.serverError.set('Error loading comments');
           console.error(err);
         }
       });
+  }
+
+  buildTree(comments: CommentResponseModel[]) {
+    const map = new Map<string, any>();
+    const roots: any[] = [];
+
+    comments.forEach(c => {
+      map.set(c.id, { ...c, replies: [] });
+    });
+
+    map.forEach(c => {
+      if (c.parentCommentId) {
+        const parent = map.get(c.parentCommentId);
+        parent?.replies.push(c);
+      } else {
+        roots.push(c);
+      }
+    });
+
+    return roots;
   }
 
   onChildCommentPublished() {

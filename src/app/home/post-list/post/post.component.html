@@ -1,6 +1,7 @@
 <div (click)="goToPostDetail(post.id)" class="post-container">
+
   <div class="user-data">
-    <img src="facebook-icon.jpg" alt="image not loaded">
+    <img src="facebook-icon.jpg">
     <p class="name">{{ post.user.firstName + ' ' + post.user.lastName }}</p>
     <p class="unique-name">&#64;{{ post.user.username }}</p>
     <p class="date">{{ post.createdAt | date: 'yyyy-MM-dd' }}</p>
@@ -29,4 +30,6 @@
 
     </div>
   </div>
+
 </div>
+

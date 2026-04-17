@@ -8,7 +8,7 @@
   </div>
   <div class="header-right">
     <div class="search-container">
-      <input type="text" placeholder="Search...  (by username)" [(ngModel)]="searchedUser">
+      <input type="text" placeholder="Search...  (by username)"   (keyup.enter)="onSearch()" [(ngModel)]="searchedUser">
       <button (click)="onSearch()" class="search-button">
         <i class="fa fa-search"></i>
 

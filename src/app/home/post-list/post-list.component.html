@@ -1,11 +1,17 @@
 <div class="post-list-container">
+
   <form class="publish-post-form" (ngSubmit)="publishPost()">
-    <textarea [(ngModel)]="text" name="text" placeholder="What's on your mind ?"></textarea>
+    <textarea
+      [(ngModel)]="text"
+      name="text"
+      placeholder="What's on your mind ?"
+      [disabled]="isPosting()"
+    ></textarea>
+
     <button type="submit" [disabled]="!text?.trim() || isPosting()">
       {{ isPosting() ? 'Publishing...' : 'Publish Post' }}
     </button>
   </form>
-
 
   @if (isLoading()) {
     <div class="loading-message">
@@ -24,4 +30,5 @@
       <app-post [post]="post"></app-post>
     }
   }
+
 </div>

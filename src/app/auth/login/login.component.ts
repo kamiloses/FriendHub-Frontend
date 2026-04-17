@@ -52,12 +52,9 @@ export class LoginComponent {
     };
 
     this.loginService.login(login).pipe(take(1)).subscribe({
-      next: (response: LoginResponseModel) => {
+      next: () => {
         this.isLoading.set(false);
 
-        this.authService.login(response.token, login.username);
-
-        this.global.setGlobalToken(response.token);
         this.global.setGlobalUsername(login.username);
         this.global.setGlobalSession(true);
 
