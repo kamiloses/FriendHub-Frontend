@@ -31,7 +31,6 @@
 </div>
 
 
-<!-- CZAT -->
 @if (isChatOpen) {
   <div
     class="friend-chat-window"
@@ -47,7 +46,7 @@
     <div class="chat-content">
       @for (message of messageDetails(); track message.chatId) {
         <div class="message">
-          <img src="assets/facebook-icon.jpg" alt="Avatar">
+          <img src="facebook-icon.jpg" alt="Avatar">
           {{ message.firstName }} {{ message.lastName }}: {{ message.message }}
         </div>
       }

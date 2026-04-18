@@ -1,0 +1,16 @@
+aside {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+
+  width: 280px;
+  height: calc(100vh - 100px);
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  background: transparent;
+}
